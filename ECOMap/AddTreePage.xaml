@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ECOMap.AddTreePage"
+             Title="AddTreePage"
+             Shell.BackgroundColor="#1c7319">
+
+    <ScrollView>
+        <StackLayout Margin="20"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     BackgroundColor="#FFFFFF"
+                     Spacing="20">
+
+            <!-- Tree Type Entry -->
+            <Frame BorderColor="#1c7319" CornerRadius="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Tree Type" TextColor="Black" VerticalOptions="Center"/>
+                    <Entry Placeholder="Enter tree type" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Height Entry -->
+            <Frame BorderColor="#1c7319" CornerRadius="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Height" TextColor="Black" VerticalOptions="Center"/>
+                    <Entry Placeholder="Enter height" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Circumference Entry -->
+            <Frame BorderColor="#1c7319" CornerRadius="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Circumference" TextColor="Black" VerticalOptions="Center"/>
+                    <Entry Placeholder="Enter circumference" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Plant Age Entry -->
+            <Frame BorderColor="#1c7319" CornerRadius="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Plant Age" TextColor="Black" VerticalOptions="Center"/>
+                    <Entry Placeholder="Enter plant age" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Pictures Label -->
+            <Label Text="Pictures (required)" TextColor="Black" HorizontalOptions="Center"/>
+
+            <!-- Upload and Camera Buttons -->
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Spacing="10">
+                <Button Text="Upload" BackgroundColor="#1c7319" Pressed="Button_Pressed" Released="Button_Released"/>
+                <Button Text="Camera" BackgroundColor="#1c7319" Pressed="Button_Pressed" Released="Button_Released"/>
+            </StackLayout>
+
+            <!-- Comment Entry -->
+            <Frame BorderColor="#1c7319" CornerRadius="5">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Comment" TextColor="Black" VerticalOptions="Center"/>
+                    <Entry Placeholder="Enter comment" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Confirm Button -->
+            <Button Text="Confirm"  BackgroundColor="#1c7319" Pressed="Button_Pressed" Released="Button_Released"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ECOMap.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ECOMap"
+    Shell.FlyoutBehavior="Disabled"
+    Title="ECOMap"
+    Shell.TabBarForegroundColor="#1c7319"
+    Shell.TabBarTitleColor="#1c7319">
+
+    <TabBar>
+        <Tab Title="Home" Icon="map_location.png">
+            <ShellContent Title="Home"
+                          ContentTemplate = "{DataTemplate local:MainPage}" Route = "MainPage"/>
+        </Tab>
+        <Tab Title="AddTree" Icon="tree_plus.png">
+            <ShellContent Title="AddTree"
+                  ContentTemplate = "{DataTemplate local:AddTreePage}" Route = "AddTreePage"/>
+        </Tab>
+        <Tab Title="Walking" Icon="hiking.png">
+            <ShellContent Title="Walking"
+                  ContentTemplate = "{DataTemplate local:WalkingPage}" Route = "WalkingPage"/>
+        </Tab>
+        <Tab Title="Notifications" Icon="bell.png">
+            <ShellContent Title="Notifications"
+                  ContentTemplate = "{DataTemplate local:NotificationsPage}" Route = "NotificationsPage"/>
+        </Tab>
+        <Tab Title="Settings" Icon="setting.png">
+            <ShellContent Title="More"
+                  ContentTemplate = "{DataTemplate local:SettingsPage}" Route = "SettingsPage"/>
+        </Tab>
+        <Tab Title="Scan QR" Icon="qrcode.png">
+            <ShellContent Title="More"
+                ContentTemplate = "{DataTemplate local:ScanQrPage}" Route = "ScanQrPage"/>
+        </Tab>
+        <Tab Title="About/FAQS" Icon="info.png">
+            <ShellContent Title="More"
+                ContentTemplate = "{DataTemplate local:InfoPage}" Route = "InfoPage"/>
+        </Tab>
+        <Tab Title="Login/Register" Icon="enter.png">
+            <ShellContent Title="More"
+                ContentTemplate = "{DataTemplate local:SignInPage}" Route = "SignInPage"/>
+        </Tab>
+
+
+
+    </TabBar>
+
+    <ShellContent
+        Title="Test app"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+    
+</Shell>
