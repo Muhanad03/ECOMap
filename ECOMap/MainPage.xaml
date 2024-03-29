@@ -1,5 +1,7 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
              x:Class="ECOMap.MainPage"
              Shell.BackgroundColor="#1c7319">
     
@@ -12,10 +14,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- WebView to display the map -->
-        <WebView x:Name="webView" Grid.Row="0" />
 
-        <!-- Task Bar -->
-        
+        <maps:Map
+            
+            IsShowingUser="True"
+            x:Name="map"
+            
+            
+         />
+
     </Grid>
 </ContentPage>
