@@ -9,13 +9,14 @@ namespace ECOMap
         public MainPage()
         {
             InitializeComponent();
-          
-         
+
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
+
         }
-       
-        protected override async void OnAppearing()
+        
+
+        private async void SetMap()
         {
-            base.OnAppearing();
             PermissionStatus result = await CheckAndRequestLocationPermission();
 
             if (result == PermissionStatus.Granted)
@@ -25,11 +26,18 @@ namespace ECOMap
 
                 if (location != null)
                 {
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location,Distance.FromMiles(0.5)));
-                   
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.5)));
+
                 }
 
             }
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            SetMap();
+
+
         }
 
 
