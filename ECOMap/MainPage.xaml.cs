@@ -27,6 +27,7 @@ namespace ECOMap
                 if (location != null)
                 {
                     map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.5)));
+                    
 
                 }
 
@@ -56,7 +57,9 @@ namespace ECOMap
             PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
             if (status == PermissionStatus.Granted)
+                map.IsEnabled = true;
                 return status;
+                
 
             if (status == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
             {
