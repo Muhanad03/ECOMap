@@ -22,12 +22,17 @@ namespace ECOMap
             if (result == PermissionStatus.Granted)
             {
                 var locationRequest = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
-                Location location = await Geolocation.GetLocationAsync(locationRequest);
+                Location? location = await Geolocation.GetLocationAsync(locationRequest);
 
                 if (location != null)
                 {
                     map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.5)));
                     
+
+                }
+                else
+                {
+                    await DisplayAlert("Can't detect your current location", "Try restarting the app", "OK");
 
                 }
 
