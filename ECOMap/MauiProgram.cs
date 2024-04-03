@@ -1,11 +1,16 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ECOMap.API;
+using Microsoft.Extensions.Logging;
 
 namespace ECOMap
 {
     public static class MauiProgram
     {
+
+       public static ApiService _ApiService { get; set; }
+
         public static MauiApp CreateMauiApp()
         {
+            _ApiService = new ApiService();
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()

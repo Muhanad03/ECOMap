@@ -5,6 +5,7 @@
              Title="NotificationsPage">
     <VerticalStackLayout>
         <Label 
+            x:Name="label"
             Text="Notifications Placeholder"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />

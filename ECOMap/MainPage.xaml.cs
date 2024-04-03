@@ -1,6 +1,8 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Maps;
+using System.Text;
 namespace ECOMap
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -27,7 +29,28 @@ namespace ECOMap
                 if (location != null)
                 {
                     map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.5)));
-                    
+
+                    var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
+
+             
+                    foreach (var treeData in treeDataList)
+                    {
+
+                        Pin pin = new Pin
+                        {
+                            Label = treeData.id.ToString(),
+                            Address = "",
+                            Type = PinType.Generic,
+                            Location = new Location(treeData.longitude, treeData.latitude)
+                        };
+                        pin.MarkerClicked += Pin_InfoWindowClicked;
+                        
+
+                        map.Pins.Add(pin);
+                    }
+
+                  
+
 
                 }
                 else
@@ -38,6 +61,23 @@ namespace ECOMap
 
             }
         }
+        private async void Pin_InfoWindowClicked(object sender, EventArgs e)
+        {
+            Pin pin = (Pin)sender;
+
+            // Display a small note with a button to show more
+            string note = $"Tree ID: {pin.Label}\nDo you want to show more details?";
+            bool result = await DisplayAlert("Tree Information", note, "Yes", "No");
+
+            if (result)
+            {
+                // Handle the button click to show more details
+                // You can implement your logic here to navigate to another page or display more information
+            }
+        }
+
+
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
