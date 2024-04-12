@@ -4,33 +4,44 @@
              xmlns:local="clr-namespace:ECOMap"
              x:Class="ECOMap.SignInPage"
              Title="SignInPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundImageSource="background2">
+
     <ContentPage.Content>
-        <StackLayout Spacing="0" Padding="20" BackgroundColor="ForestGreen">
-            <Image Source="avatar_sign_in.png" HeightRequest="60" Margin="0,20,0,20"/>
-            <!-- I commented  this maybe looks better?!
-            <Label Text="Login" FontSize="Header" TextColor="White" HorizontalOptions="Center" Margin="0,10,0,10"/> -->
-            <Label Text="Email" FontSize="Subtitle" TextColor="White" HorizontalOptions="Center" Margin="0,0,0,10"/>
+        <!-- Main content stack layout -->
+        <StackLayout Spacing="30" Padding="40" BackgroundColor="Transparent" TranslationY="100">
 
-            <StackLayout>
-                <local:BordlessEntry Text="{Binding userName}" Placeholder="Enter Email" HeightRequest="40" BackgroundColor="White" Margin="{OnPlatform Android='0,0,0,0', iOS='0,0,0,10'}" />
-            </StackLayout>
+            <!-- Email Entry -->
+            <local:BordlessEntry Text="{Binding userName}" Placeholder="Enter Email"
+                                 HeightRequest="40" BackgroundColor="Transparent"
+                                 Margin="{OnPlatform Android='0,0,0,0', iOS='0,0,0,10'}" />
 
-            <Label Text="Password" FontSize="Subtitle" TextColor="White" HorizontalOptions="Center" Margin="0,20,0,10"/>
-            <StackLayout>
-                <local:BordlessEntry Text="{Binding password}" Placeholder="Enter Password" HeightRequest="40" BackgroundColor="White" Margin="{OnPlatform Android='0,0,0,0', iOS='0,0,0,10'}"
-                                     IsPassword="True"/>
-            </StackLayout>
+            <!-- Password Entry -->
+            <local:BordlessEntry x:Name="PasswordEntry" Text="{Binding password}" Placeholder="Enter Password"
+                                 HeightRequest="40" BackgroundColor="Transparent"
+                                 Margin="{OnPlatform Android='0,0,0,0', iOS='0,0,0,10'}"
+                                 IsPassword="True"/>
 
+            <!-- Remember me and Forgot password -->
             <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
-                <CheckBox IsChecked="False" BackgroundColor="White"/>
-                <Label Text="Remember me" TextColor="White" FontSize="Micro" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                <Label Text="Forgot password" TextColor="White" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Micro"/>
+                <CheckBox x:Name="isPasswordVisible" IsChecked="False" BackgroundColor="Transparent"/>
+                <Label Text="Show password" TextColor="Black" FontSize="Micro"
+                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Label Text="Forgot password" TextColor="Black" FontAttributes="Bold"
+                       HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center" FontSize="Micro"/>
             </StackLayout>
 
-            <Button Text="Login" FontSize="Subtitle" Margin="0,30,0,10" WidthRequest="200" CornerRadius="10" BackgroundColor="DarkGreen" TextColor="White" Command="{Binding LoginCommand}"/>
-            <Button Text="Register" FontSize="Subtitle" Margin="0,0,0,10" WidthRequest="200" CornerRadius="10" BackgroundColor="DarkGreen" TextColor="White"/>
+            <!-- Login Button -->
+            <Button Text="Login" FontSize="Subtitle" Margin="0,30,0,10" WidthRequest="200"
+                    CornerRadius="10" BackgroundColor="DarkGreen" TextColor="White"
+                    Command="{Binding LoginCommand}"/>
 
+            <!-- Register Button -->
+            <Button Text="Register" FontSize="Subtitle" Margin="0,0,0,10" WidthRequest="200"
+                    CornerRadius="10" BackgroundColor="DarkGreen" TextColor="White"/>
+
+            <!-- Sign in using labels -->
             <Grid Margin="0,20,0,0" ColumnSpacing="15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -39,11 +50,12 @@
                 </Grid.ColumnDefinitions>
 
                 <BoxView Grid.Column="0" HeightRequest="2" Color="White"/>
-                <Label Grid.Column="1" Text="Sign in using" TextColor="White" FontSize="Small" HorizontalOptions="Center"/>
+                <Label Grid.Column="1" Text="Sign in using" TextColor="White"
+                       FontSize="Small" HorizontalOptions="Center"/>
                 <BoxView Grid.Column="2" HeightRequest="2" Color="White"/>
             </Grid>
 
-            <!-- Google and facebook sign in option -->
+            <!-- Google and Facebook sign in option -->
             <HorizontalStackLayout Margin="0,10,0,0" Spacing="10" HorizontalOptions="Center">
                 <ImageButton Source="google_logo.png" HeightRequest="60" WidthRequest="105"/>
                 <ImageButton Source="facebook.png" HeightRequest="60" WidthRequest="105"/>

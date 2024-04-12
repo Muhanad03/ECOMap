@@ -7,9 +7,12 @@
     Shell.FlyoutBehavior="Disabled"
     Title="ECOMap"
     Shell.TabBarForegroundColor="#1c7319"
-    Shell.TabBarTitleColor="#1c7319">
+    Shell.TabBarTitleColor="#1c7319"
+    Shell.TabBarBackgroundColor="White">
 
-    <TabBar>
+    <TabBar x:Name="tabBar">
+        
+        
         <Tab Title="Home" Icon="map_location.png">
             <ShellContent Title="Home"
                           ContentTemplate = "{DataTemplate local:MainPage}" Route = "MainPage"/>

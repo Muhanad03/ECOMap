@@ -1,4 +1,5 @@
 using ECOMap.API;
+using ECOMap.config;
 using System.Text;
 
 namespace ECOMap;
@@ -14,9 +15,7 @@ public partial class NotificationsPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
         var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
-
         var treeDataStringBuilder = new StringBuilder();
         foreach (var treeData in treeDataList)
         {

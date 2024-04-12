@@ -24,22 +24,16 @@ namespace ECOMap.API
 
             string jsonResponse = await response.Content.ReadAsStringAsync();
 
-            // Deserialize the JSON response into a JObject
             JObject responseObject = JObject.Parse(jsonResponse);
 
-            // Check if the response contains a "status" property with a value of 200
             if (responseObject["status"] != null && (int)responseObject["status"] == 200)
             {
-                // Check if the response contains a "data" property
                 if (responseObject["data"] != null)
                 {
-                    // Deserialize the "data" property into a JArray
                     JArray dataArray = (JArray)responseObject["data"];
 
-                    // Create a list to store the deserialized treeData objects
                     List<treeData> treeDataList = new List<treeData>();
 
-                    // Iterate over each item in the array and deserialize it into a treeData object
                     foreach (var item in dataArray)
                     {
                         treeData tree = new treeData
@@ -49,7 +43,6 @@ namespace ECOMap.API
                             id = item["id"].ToString()
                         };
 
-                        // Add the deserialized treeData object to the list
                         treeDataList.Add(tree);
                     }
 
@@ -57,14 +50,12 @@ namespace ECOMap.API
                 }
                 else
                 {
-                    // Handle the case where the "data" property is missing or empty
                     Console.WriteLine("No tree data found");
                     return new List<treeData>();
                 }
             }
             else
             {
-                // Handle other status codes or error scenarios
                 Console.WriteLine("API returned an error");
                 return new List<treeData>();
             }

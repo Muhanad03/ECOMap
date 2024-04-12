@@ -12,6 +12,7 @@ namespace ECOMap
         {
             InitializeComponent();
 
+
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
 
         }
@@ -32,7 +33,7 @@ namespace ECOMap
 
                     var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
 
-             
+                    
                     foreach (var treeData in treeDataList)
                     {
 
@@ -40,9 +41,13 @@ namespace ECOMap
                         {
                             Label = treeData.id.ToString(),
                             Address = "",
-                            Type = PinType.Generic,
-                            Location = new Location(treeData.longitude, treeData.latitude)
+                            Type = PinType.SavedPin,
+                            Location = new Location(treeData.longitude, treeData.latitude),
+                            
+                            
+                          
                         };
+                        
                         pin.MarkerClicked += Pin_InfoWindowClicked;
                         
 
@@ -56,6 +61,7 @@ namespace ECOMap
                 else
                 {
                     await DisplayAlert("Can't detect your current location", "Try restarting the app", "OK");
+                    
 
                 }
 
@@ -64,9 +70,8 @@ namespace ECOMap
         private async void Pin_InfoWindowClicked(object sender, EventArgs e)
         {
             Pin pin = (Pin)sender;
-
             // Display a small note with a button to show more
-            string note = $"Tree ID: {pin.Label}\nDo you want to show more details?";
+            string note = $"Tree ID: {pin.Label}\n {pin.Location.ToString()}";
             bool result = await DisplayAlert("Tree Information", note, "Yes", "No");
 
             if (result)
@@ -91,6 +96,8 @@ namespace ECOMap
         {
             base.OnDisappearing();
         }
+       
+
 
 
 
