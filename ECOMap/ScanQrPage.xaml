@@ -1,12 +1,34 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
              x:Class="ECOMap.ScanQrPage"
              Title="ScanQrPage">
-    <VerticalStackLayout>
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
         <Label 
-            Text="QR code scanning placeholder"
+            Text="Scan QR Code"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            HorizontalOptions="Center" 
+            x:Name="TitleLabel"
+            FontSize="Large"
+            Margin="0,20,0,0"
+        />
+
+        <cv:CameraView x:Name="Camera" WidthRequest="400" HeightRequest="400"
+                       BarCodeDetectionEnabled="True"
+                       BarcodeDetected="Camera_BarCodeDetected"/>
+
+        <Button 
+            Text="Scan in Maui"
+            Grid.Row="1"
+            BackgroundColor="#1c7319"
+            VerticalOptions="End"
+            HorizontalOptions="Center"
+            Margin="0,0,0,20"
+        />
+    </Grid>
 </ContentPage>

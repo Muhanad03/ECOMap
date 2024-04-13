@@ -28,6 +28,8 @@
         <Tab Title="Notifications" Icon="bell.png">
             <ShellContent Title="Notifications"
                   ContentTemplate = "{DataTemplate local:NotificationsPage}" Route = "NotificationsPage"/>
+            
+ 
         </Tab>
         <Tab Title="Settings" Icon="setting.png">
             <ShellContent Title="More"
@@ -41,7 +43,7 @@
             <ShellContent Title="More"
                 ContentTemplate = "{DataTemplate local:InfoPage}" Route = "InfoPage"/>
         </Tab>
-        <Tab Title="Login/Register" Icon="enter.png">
+        <Tab x:Name="LoginTab" Title="Login/Register" Icon="enter.png">
             <ShellContent Title="More"
                 ContentTemplate = "{DataTemplate local:SignInPage}" Route = "SignInPage"/>
         </Tab>

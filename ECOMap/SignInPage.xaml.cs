@@ -14,6 +14,7 @@ namespace ECOMap
         private void ShowPassword(object? sender, CheckedChangedEventArgs e)
         {
             PasswordEntry.IsPassword = isPasswordVisible.IsChecked ? false : true;
+
         }
     }
 }
