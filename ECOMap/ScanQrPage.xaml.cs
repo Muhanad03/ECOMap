@@ -6,4 +6,8 @@ public partial class ScanQrPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+    }
 }
