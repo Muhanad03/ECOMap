@@ -8,13 +8,14 @@ public partial class ScanQrPage : ContentPage
 	{
 		InitializeComponent();
 	}
-    protected override async void OnAppearing()
+
+    protected override void OnAppearing()
     {
         base.OnAppearing();
        
         CameraRestart();
     }
-    protected override async void OnDisappearing()
+    protected override void OnDisappearing()
     {
        
     }
@@ -45,11 +46,12 @@ public partial class ScanQrPage : ContentPage
         }
 
     }
-    private void Camera_BarCodeDetected(object sender,Camera.MAUI.ZXingHelper.BarcodeEventArgs args)
+    private void Camera_BarCodeDetected(object sender, Camera.MAUI.ZXingHelper.BarcodeEventArgs args)
     {
         MainThread.BeginInvokeOnMainThread(() =>
         {
             TitleLabel.Text = args.Result[0].Text;
         });
     }
+    
 }
