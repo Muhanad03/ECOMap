@@ -14,46 +14,65 @@ namespace ECOMap
 
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
-
+            SetMap();
         }
         
+        private async void UpdatePins()
+        {
 
+            var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
+
+            foreach (var tree in treeDataList)
+            {
+                Pin pin = new Pin
+                {
+                    Label = tree.id.ToString(),
+                    Address = tree.planter_Name,
+                    Type = PinType.SavedPin,
+                    Location = new Location(tree.longitude, tree.latitude),
+                };
+                map.Pins.Add(pin);
+            }
+
+        }
         private async void SetMap()
         {
             PermissionStatus result = await CheckAndRequestLocationPermission();
 
             if (result == PermissionStatus.Granted)
             {
-                var locationRequest = new GeolocationRequest(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
+                var locationRequest = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(2));
                 Location? location = await Geolocation.GetLocationAsync(locationRequest);
+
+                var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
+
+
+                foreach (var treeData in treeDataList)
+                {
+
+                    Pin pin = new Pin
+                    {
+                        Label = treeData.id.ToString(),
+                        Address = "",
+                        Type = PinType.SavedPin,
+                        Location = new Location(treeData.longitude, treeData.latitude),
+
+
+
+                    };
+
+                    pin.MarkerClicked += Pin_InfoWindowClicked;
+
+
+                    map.Pins.Add(pin);
+                }
+
 
                 if (location != null)
                 {
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.5)));
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.1)));
 
-                    var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
-
-                    
-                    foreach (var treeData in treeDataList)
-                    {
-
-                        Pin pin = new Pin
-                        {
-                            Label = treeData.id.ToString(),
-                            Address = "",
-                            Type = PinType.SavedPin,
-                            Location = new Location(treeData.longitude, treeData.latitude),
-                            
-                            
-                          
-                        };
-                        
-                        pin.MarkerClicked += Pin_InfoWindowClicked;
-                        
-
-                        map.Pins.Add(pin);
-                    }
-
+                   
                   
 
 
@@ -86,7 +105,9 @@ namespace ECOMap
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            SetMap();
+            UpdatePins();
+
+
 
 
         }

@@ -9,14 +9,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Label 
-            Text="Scan QR Code"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            x:Name="TitleLabel"
-            FontSize="Large"
-            Margin="0,20,0,0"
-        />
+       
 
         <cv:CameraView x:Name="Camera" WidthRequest="400" HeightRequest="400"
                        BarCodeDetectionEnabled="True"
@@ -25,10 +18,18 @@
         <Button 
             Text="Scan in Maui"
             Grid.Row="1"
-            BackgroundColor="#1c7319"
+            BackgroundColor="Red"
             VerticalOptions="End"
             HorizontalOptions="Center"
             Margin="0,0,0,20"
         />
+        <Label 
+         Text="Scan QR Code"
+         VerticalOptions="Center" 
+         HorizontalOptions="Center" 
+         x:Name="TitleLabel"
+         FontSize="Large"
+         Margin="0,20,0,0"
+         />
     </Grid>
 </ContentPage>
