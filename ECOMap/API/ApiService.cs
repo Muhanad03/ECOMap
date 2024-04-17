@@ -22,52 +22,61 @@ namespace ECOMap.API
         public async Task<List<treeData>> GetTreeDataAsync()
         {
             HttpResponseMessage response = await _httpClient.GetAsync("read.php");
-            response.EnsureSuccessStatusCode();
-
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-
-            JObject responseObject = JObject.Parse(jsonResponse);
-
-            if (responseObject["status"] != null && (int)responseObject["status"] == 200)
+            try
             {
-                if (responseObject["data"] != null)
+                response.EnsureSuccessStatusCode();
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                JObject responseObject = JObject.Parse(jsonResponse);
+
+                if (responseObject["status"] != null && (int)responseObject["status"] == 200)
                 {
-                    JArray dataArray = (JArray)responseObject["data"];
-
-                    List<treeData> treeDataList = new List<treeData>();
-
-                    foreach (var item in dataArray)
+                    if (responseObject["data"] != null)
                     {
-                        treeData tree = new treeData
+                        JArray dataArray = (JArray)responseObject["data"];
+
+                        List<treeData> treeDataList = new List<treeData>();
+
+                        foreach (var item in dataArray)
                         {
-                            id = (int)item["Tree_ID"],
-                            addedByUser_ID = (int)item["AddedByUser_ID"],
-                            guardian_ID = (int?)item["Guardian_ID"],
-                            longitude = Convert.ToDouble(item["Longitude"]),
-                            latitude = Convert.ToDouble(item["Latitude"]),
-                            height = Convert.ToDouble(item["Height"]),
-                            circumference = Convert.ToDouble(item["Circumference"]),
-                            plant_Age = item["Plant_Age"].ToString(),
-                            planter_Name = item["Planter_Name"].ToString()
+                            treeData tree = new treeData
+                            {
+                                id = (int)item["Tree_ID"],
+                                addedByUser_ID = (int)item["AddedByUser_ID"],
+                                guardian_ID = (int?)item["Guardian_ID"],
+                                longitude = Convert.ToDouble(item["Longitude"]),
+                                latitude = Convert.ToDouble(item["Latitude"]),
+                                height = Convert.ToDouble(item["Height"]),
+                                circumference = Convert.ToDouble(item["Circumference"]),
+                                plant_Age = item["Plant_Age"].ToString(),
+                                planter_Name = item["Planter_Name"].ToString()
 
-                        };
+                            };
 
-                        treeDataList.Add(tree);
+                            treeDataList.Add(tree);
+                        }
+
+                        return treeDataList;
                     }
-
-                    return treeDataList;
+                    else
+                    {
+                        Console.WriteLine("No tree data found");
+                        return new List<treeData>();
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("No tree data found");
+                    Console.WriteLine("API returned an error");
                     return new List<treeData>();
                 }
-            }
-            else
+            }catch(HttpRequestException ex)
             {
-                Console.WriteLine("API returned an error");
+
                 return new List<treeData>();
             }
+            
+
+            
         }
 
         public async Task<string> AddTreeDataAsync(treeData tree)
