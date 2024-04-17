@@ -12,7 +12,7 @@ namespace ECOMap
         }
         public void EnableUserLoggedInTabs()
         {
-            LoginTab.IsVisible = false;
+            //LoginTab.IsVisible = false;
         }
         public void DisableUserLoggedInTabs()
         {

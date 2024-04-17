@@ -31,22 +31,22 @@
             
  
         </Tab>
-        <Tab Title="Settings" Icon="setting.png">
+        <!--<Tab Title="Settings" Icon="setting.png">
             <ShellContent Title="More"
                   ContentTemplate = "{DataTemplate local:SettingsPage}" Route = "SettingsPage"/>
-        </Tab>
+        </Tab>-->
         <Tab Title="Scan QR" Icon="qrcode.png">
             <ShellContent Title="More"
                 ContentTemplate = "{DataTemplate local:ScanQrPage}" Route = "ScanQrPage"/>
         </Tab>
-        <Tab Title="About/FAQS" Icon="info.png">
+        <!--<Tab Title="About/FAQS" Icon="info.png">
             <ShellContent Title="More"
                 ContentTemplate = "{DataTemplate local:InfoPage}" Route = "InfoPage"/>
         </Tab>
         <Tab x:Name="LoginTab" Title="Login/Register" Icon="enter.png">
             <ShellContent Title="More"
                 ContentTemplate = "{DataTemplate local:SignInPage}" Route = "SignInPage"/>
-        </Tab>
+        </Tab>-->
 
 
 
