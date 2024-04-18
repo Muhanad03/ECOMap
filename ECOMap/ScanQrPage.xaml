@@ -12,16 +12,21 @@
        
 
         <cv:CameraView x:Name="Camera" WidthRequest="400" HeightRequest="400"
+                       IsEnabled="True"
+                       IsVisible="True"
+                       CamerasLoaded="Camera_CamerasLoaded"
                        BarCodeDetectionEnabled="True"
                        BarcodeDetected="Camera_BarCodeDetected"/>
 
         <Button 
             Text="Scan in Maui"
             Grid.Row="1"
-            BackgroundColor="Red"
+            BackgroundColor="YellowGreen"
             VerticalOptions="End"
             HorizontalOptions="Center"
             Margin="0,0,0,20"
+            Clicked="ScanBtn_Clicked"
+            
         />
         <Label 
          Text="Scan QR Code"

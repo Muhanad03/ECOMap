@@ -12,7 +12,6 @@ namespace ECOMap
         {
             InitializeComponent();
 
-
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
             SetMap();
         }
@@ -33,6 +32,38 @@ namespace ECOMap
                 };
                 map.Pins.Add(pin);
             }
+
+        }
+        private async Task<bool> CheckPins()
+        {
+
+            try
+            {
+
+                var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
+                var tempList = new List<Pin>();
+                var CurrentPinsList = map.Pins.ToList();
+
+                foreach (var tree in treeDataList)
+                {
+                    Pin pin = new Pin
+                    {
+                        Label = tree.id.ToString(),
+                        Address = tree.planter_Name,
+                        Type = PinType.SavedPin,
+                        Location = new Location(tree.longitude, tree.latitude),
+                    };
+                    tempList.Add(pin);
+                }
+
+
+                return CurrentPinsList.SequenceEqual(tempList);
+            }catch(Exception e)
+            {
+
+                return false;
+            }
+
 
         }
         private async void SetMap()
@@ -105,7 +136,14 @@ namespace ECOMap
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            UpdatePins();
+
+            var check = await CheckPins();
+
+            if (check == false)
+            {
+                UpdatePins();
+            }
+           
 
 
 

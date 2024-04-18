@@ -35,9 +35,9 @@
             <ShellContent Title="More"
                   ContentTemplate = "{DataTemplate local:SettingsPage}" Route = "SettingsPage"/>
         </Tab>-->
-        <Tab Title="Scan QR" Icon="qrcode.png">
+        <Tab Title="More" Icon="more.png">
             <ShellContent Title="More"
-                ContentTemplate = "{DataTemplate local:ScanQrPage}" Route = "ScanQrPage"/>
+                ContentTemplate = "{DataTemplate local:MoreTab}" Route = "MoreTab"/>
         </Tab>
         <!--<Tab Title="About/FAQS" Icon="info.png">
             <ShellContent Title="More"

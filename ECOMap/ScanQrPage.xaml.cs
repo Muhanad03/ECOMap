@@ -1,51 +1,46 @@
 using Camera.MAUI;
+using System.Diagnostics;
 
 namespace ECOMap;
 
 public partial class ScanQrPage : ContentPage
 {
-	public ScanQrPage()
-	{
-		InitializeComponent();
-	}
+    public ScanQrPage()
+    {
+        InitializeComponent();
+       
+    }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-       
-        CameraRestart();
-    }
-    protected override void OnDisappearing()
-    {
-       
-    }
-    
-    //private void CameraOnLoad(object sender, EventArgs e)
-    //{
-    //    if(Camera.Cameras.Count > 0)
-    //    {
-    //        Camera.Camera = Camera.Cameras.First();
-    //        MainThread.BeginInvokeOnMainThread(async () =>
-    //        {
-    //            await Camera.StopCameraAsync();
-    //            await Camera.StartCameraAsync();
-    //        });
-    //    }
 
-    //}
-    private void CameraRestart()
+        // Initialize and start the camera asynchronously
+   
+    }
+
+    protected override async void OnDisappearing()
+    {
+    
+
+        base.OnDisappearing();
+    }
+
+    private async Task InitializeCameraAsync()
     {
         if (Camera.Cameras.Count > 0)
         {
             Camera.Camera = Camera.Cameras.First();
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Camera.StopCameraAsync();
-                await Camera.StartCameraAsync();
-            });
-        }
 
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                 Camera.StopCameraAsync();
+                 Camera.StartCameraAsync();
+            });
+           
+        }
     }
+
     private void Camera_BarCodeDetected(object sender, Camera.MAUI.ZXingHelper.BarcodeEventArgs args)
     {
         MainThread.BeginInvokeOnMainThread(() =>
@@ -53,5 +48,24 @@ public partial class ScanQrPage : ContentPage
             TitleLabel.Text = args.Result[0].Text;
         });
     }
-    
+
+    private void ScanBtn_Clicked(object sender, EventArgs e)
+    {
+        Debug.WriteLine("Clicked");
+    }
+
+    private void Camera_CamerasLoaded(object sender, EventArgs e)
+    {
+        if (Camera.Cameras.Count > 0)
+        {
+            Camera.Camera = Camera.Cameras.First();
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                Camera.StopCameraAsync();
+                Camera.StartCameraAsync();
+            });
+
+        }
+    }
 }

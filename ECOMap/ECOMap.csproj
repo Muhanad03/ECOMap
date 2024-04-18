@@ -70,6 +70,7 @@
 	  <None Remove="Resources\Images\hiking.svg" />
 	  <None Remove="Resources\Images\info.png" />
 	  <None Remove="Resources\Images\map_location.svg" />
+	  <None Remove="Resources\Images\more.png" />
 	  <None Remove="Resources\Images\password_logo.png" />
 	  <None Remove="Resources\Images\qrcode.png" />
 	  <None Remove="Resources\Images\setting.png" />
@@ -89,7 +90,13 @@
 		<MauiSplashScreen Include="Resources\Splash\trace.svg" Color="White" />
 	</ItemGroup>
 	<ItemGroup>
+	  <MauiXaml Update="CustomCell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="InfoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MoreTab.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="NotificationsPage.xaml">
@@ -110,6 +117,9 @@
 	  <MauiXaml Update="WalkingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Customs\" />
 	</ItemGroup>
 
 </Project>
