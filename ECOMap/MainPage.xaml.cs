@@ -11,6 +11,7 @@ namespace ECOMap
         public MainPage()
         {
             InitializeComponent(); //comment for Mo
+            // Mo is not responding well
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
             SetMap();
