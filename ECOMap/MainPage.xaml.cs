@@ -10,7 +10,7 @@ namespace ECOMap
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent(); //comment for Mo
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
             SetMap();
