@@ -21,8 +21,7 @@ public partial class ScanQrPage : ContentPage
 
     protected override async void OnDisappearing()
     {
-    
-
+        await Navigation.PopAsync();
         base.OnDisappearing();
     }
 

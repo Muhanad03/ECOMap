@@ -2,8 +2,10 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ECOMap"
-             x:Class="ECOMap.CustomCell">
-    <StackLayout Orientation="Horizontal" Padding="10" Spacing="15">
-        <Label x:Name="PageNameLabel" Text ="{Binding Title}" FontSize="Medium" VerticalOptions="Center" TextColor="Black"/>
+             x:Class="ECOMap.CustomCell"
+             Shell.TabBarIsVisible="False">
+    <StackLayout Orientation="Horizontal" Padding="10" Spacing="0">
+        <Label x:Name="PageNameLabel" Text ="{Binding Title}" FontSize="Medium" VerticalOptions="CenterAndExpand"
+               FontAttributes="Italic" TextColor="Green" TextDecorations="Underline"/>
     </StackLayout>
 </ContentView>

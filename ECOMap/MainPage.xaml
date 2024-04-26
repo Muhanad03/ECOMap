@@ -16,8 +16,8 @@
             
             IsShowingUser="True"
             x:Name="map"
-            IsTrafficEnabled="True"
             IsEnabled="False"
+            IsVisible ="Hidden"
             
            
             

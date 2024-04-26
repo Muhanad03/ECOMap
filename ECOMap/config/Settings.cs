@@ -8,7 +8,7 @@ namespace ECOMap.config
 {
     public class Settings
     {
-        public static string MainGreenColor = "#1c7319";
+        public static string MainGreenColor = "#40C057";
 
         public static void getSettings()
         {

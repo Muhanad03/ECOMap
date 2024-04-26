@@ -17,6 +17,7 @@ namespace ECOMap.API
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("https://ct503824grp5-ct5038.uogs.co.uk/ECOMapAPI/treePoints/");
+
         }
 
         public async Task<List<treeData>> GetTreeDataAsync()
@@ -118,6 +119,12 @@ namespace ECOMap.API
         }
 
 
+        public async Task SendImage()
+        {
+
+        }
+
+
 
 
 
@@ -156,7 +163,7 @@ namespace ECOMap.API
     }
 
 
-    public class User
+    public class userData
     {
         [JsonProperty("User_ID")]
         public int id { get; set; }
@@ -177,6 +184,23 @@ namespace ECOMap.API
         public string password { get; set; }
 
 
+
+
+
+
+
+    }
+
+    public class imageData
+    {
+        [JsonProperty("Image_ID")]
+        public int id { get; set; }
+        [JsonProperty("Tree_ID")]
+        public int tree_id { get; set; }
+        [JsonProperty("User_ID")]
+        public int user_id { get; set; }
+        [JsonProperty("Base64")]
+        public string base64 { get; set; }
 
 
 

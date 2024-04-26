@@ -41,7 +41,10 @@ namespace ECOMap
                 case "Settings":
                     await Navigation.PushAsync(new SettingsPage());
                     break;
-                    // Add cases for other page names and corresponding content pages
+
+                case "Login":
+                    await Navigation.PushAsync(new SignInPage());
+                    break;
             }
 
             // Deselect the item
