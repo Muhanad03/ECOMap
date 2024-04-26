@@ -8,12 +8,10 @@ namespace ECOMap
         {
             InitializeComponent();
 
-            isPasswordVisible.CheckedChanged += ShowPassword;
         }
 
         private void ShowPassword(object? sender, CheckedChangedEventArgs e)
         {
-            PasswordEntry.IsPassword = isPasswordVisible.IsChecked ? false : true;
 
         }
     }

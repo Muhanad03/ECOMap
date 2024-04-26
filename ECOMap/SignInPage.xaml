@@ -4,62 +4,112 @@
              xmlns:local="clr-namespace:ECOMap"
              x:Class="ECOMap.SignInPage"
              Title="SignInPage"
-             Shell.NavBarIsVisible="False"
-             BackgroundImageSource="background2">
+             Shell.NavBarIsVisible="False">
 
-    <ContentPage.Content>
-        <!-- Main content stack layout -->
-        <StackLayout Spacing="30" Padding="40" BackgroundColor="Transparent" TranslationY="100">
 
-            <!-- Email Entry -->
-            <local:BordlessEntry Text="{Binding userName}" Placeholder="Enter Email"
-                                 HeightRequest="40" BackgroundColor="Transparent"
-                                 Margin="{OnPlatform Android='0,0,0,0', iOS='0,0,0,10'}" />
+    <Grid RowDefinitions=".3*,0.7*">
 
-            <!-- Password Entry -->
-            <local:BordlessEntry x:Name="PasswordEntry" Text="{Binding password}" Placeholder="Enter Password"
-                                 HeightRequest="40" BackgroundColor="Transparent"
-                                 Margin="{OnPlatform Android='0,0,0,0', iOS='0,0,0,10'}"
-                                 IsPassword="True"/>
+        <Image Aspect="AspectFill" Source="background4.jpg"/>
 
-            <!-- Remember me and Forgot password -->
-            <StackLayout Orientation="Horizontal" Margin="0,10,0,0" Padding="0">
-                <CheckBox x:Name="isPasswordVisible" IsChecked="False" BackgroundColor="Transparent"/>
-                <Label Text="Show password" TextColor="Black" FontSize="Micro"
-                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                <Label Text="Forgot password" TextColor="Black" FontAttributes="Bold"
-                       HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center" FontSize="Micro"/>
-            </StackLayout>
+        <Grid BackgroundColor="Black" Opacity="0.4"/>
+        <Grid ColumnDefinitions="*,*">
+            <!--Logo goes in here
+            <Image Aspect="AspectFill"
+                   HeightRequest="120"
+                   Source="Logo"-->
+            <Image Grid.Column="1" HeightRequest="100"
+                   IsAnimationPlaying="True" Source="happy_girl.gif"/>
+        </Grid>
 
-            <!-- Login Button -->
-            <Button Text="Login" FontSize="Subtitle" Margin="0,30,0,10" WidthRequest="200"
-                    CornerRadius="10" BackgroundColor="DarkGreen" TextColor="White"
-                    Command="{Binding LoginCommand}"/>
+        <Grid Grid.Row="1">
 
-            <!-- Register Button -->
-            <Button Text="Register" FontSize="Subtitle" Margin="0,0,0,10" WidthRequest="200"
-                    CornerRadius="10" BackgroundColor="DarkGreen" TextColor="White"/>
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                            CornerRadius="30,30,0,0"
+                            Fill="White"
+                            />
+            <VerticalStackLayout Margin="30,0,30,0">
+                <Label FontAttributes="Bold"
+                       FontFamily="bold"
+                       FontSize="Medium"
+                       Text="Welcome! :)"
+                       TextColor="#2d2d2d"/>
 
-            <!-- Sign in using labels -->
-            <Grid Margin="0,20,0,0" ColumnSpacing="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                <Label FontFamily="regular"
+                       Text="Login to gain access to the cool stuff!"
+                       TextColor="#1c7319"/>
 
-                <BoxView Grid.Column="0" HeightRequest="2" Color="White"/>
-                <Label Grid.Column="1" Text="Sign in using" TextColor="White"
-                       FontSize="Small" HorizontalOptions="Center"/>
-                <BoxView Grid.Column="2" HeightRequest="2" Color="White"/>
-            </Grid>
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
 
-            <!-- Google and Facebook sign in option -->
-            <HorizontalStackLayout Margin="0,10,0,0" Spacing="10" HorizontalOptions="Center">
-                <ImageButton Source="google_logo.png" HeightRequest="60" WidthRequest="105"/>
-                <ImageButton Source="facebook.png" HeightRequest="60" WidthRequest="105"/>
-            </HorizontalStackLayout>
-        </StackLayout>
-    </ContentPage.Content>
+                    <RoundRectangle Background="#EDEBF6"
+                                    CornerRadius="10"
+                                    HeightRequest="60"
+                                    WidthRequest="60"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>
+                    <Image HorizontalOptions="Center" Source="email_icon.png" WidthRequest="39">
+                    </Image>
+                    <Entry Grid.Column="1"
+                           Placeholder="Enter your email address here"
+                           VerticalOptions="Center"
+                           x:Name="Email_Entry"/>
+
+                </Grid>
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
+
+                    <RoundRectangle Background="#EDEBF6"
+                                    CornerRadius="10"
+                                    HeightRequest="60"
+                                    WidthRequest="60"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"/>      
+                    <Image HorizontalOptions="Center" Source="password_icon.png" WidthRequest="48">
+                    </Image>
+                    <Entry Grid.Column="1"
+                           Placeholder="Enter your password here"
+                           VerticalOptions="Center"
+                           IsPassword="True"
+                           x:Name="Password_Entry"/>   
+
+                </Grid>
+                
+
+                <Button 
+                    Margin="0,20,0,0"
+                    BackgroundColor="#40C057"
+                    HeightRequest="60"
+                    FontFamily="bold"
+                    Text="Login"
+                    TextColor="#FBF6FD"/>
+                <Grid Margin="0,4,0,0" ColumnDefinitions=".1*,0.8*">
+                    <CheckBox x:Name="ViewPassword_CheckBox" Margin="0,10,0,0" HorizontalOptions="Start" />
+                    <Label Grid.Column="1" VerticalOptions="Center" Text="Show password"/>
+                </Grid>
+
+                <Button Margin="0,20,0,-10"
+                       HorizontalOptions="Center"
+                       Text="Forgot your password?"
+                       TextColor="Blue"
+                        BackgroundColor="Transparent"/>
+                <Button Margin="0,30,0,0"
+                       Text="Create an account"
+                       TextColor="#40C057"
+                        FontFamily="regular"
+                        HeightRequest="60"
+                        BackgroundColor="#D3EDD6"/>
+
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+
+
+    </Grid>
+
+
+
+
+
+
+
 </ContentPage>
