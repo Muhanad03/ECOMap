@@ -4,6 +4,10 @@ using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Maps;
 using System.Diagnostics;
 using System.Text;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
 namespace ECOMap
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -12,6 +16,8 @@ namespace ECOMap
         public MainPage()
         {
             InitializeComponent();
+
+            LoadPolygonFromFile();
 
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
@@ -29,7 +35,70 @@ namespace ECOMap
             
       
         }
-        
+
+
+        private void LoadPolygonFromFile()
+        {
+            try
+            {
+                // Read the contents of the text file
+                string filePath = "Resources/Charlton Kings Area.txt";
+                string fileContents = File.ReadAllText(filePath);
+
+                // Parse the polygon boundary coordinates
+                List<Tuple<double, double>> polygonCoordinates = ParsePolygonCoordinates(fileContents);
+
+                // Create a polygon using the parsed coordinates
+                AddPolygonToMap(polygonCoordinates);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                Console.WriteLine($"Error loading polygon: {ex.Message}");
+            }
+        }
+
+
+        private List<Tuple<double, double>> ParsePolygonCoordinates(string fileContents)
+        {
+            List<Tuple<double, double>> polygonCoordinates = new List<Tuple<double, double>>();
+
+            // Remove unnecessary text and split the coordinates
+            string[] parts = fileContents.Replace("POLYGON ((", "").Replace("))", "").Split(',');
+
+            foreach (string part in parts)
+            {
+                // Split each coordinate pair and parse latitude and longitude
+                string[] coordinates = part.Trim().Split(' ');
+                double latitude = double.Parse(coordinates[0]);
+                double longitude = double.Parse(coordinates[1]);
+
+                polygonCoordinates.Add(new Tuple<double, double>(latitude, longitude));
+            }
+
+            return polygonCoordinates;
+        }
+
+        private void AddPolygonToMap(List<Tuple<double, double>> polygonCoordinates)
+        {
+            // Create a polygon using the parsed coordinates
+            Polygon polygon = new Polygon
+            {
+                StrokeWidth = 2,
+                StrokeColor = Color.Red,
+                FillColor = Color.FromRgba(255, 0, 0, 128)
+            };
+
+            // Add the coordinates to the polygon
+            foreach (var coordinate in polygonCoordinates)
+            {
+                polygon.Geopath.Add(new Position(coordinate.Item1, coordinate.Item2));
+            }
+
+            // Add the polygon to the map
+            map.Polygons.Add(polygon);
+        }
+
         private async void UpdatePins()
         {
 
