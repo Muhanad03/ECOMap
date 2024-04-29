@@ -62,6 +62,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Charlton Kings Area.txt" />
 	  <None Remove="Resources\Images\avatar_sign_in.png" />
 	  <None Remove="Resources\Images\bell.svg" />
 	  <None Remove="Resources\Images\enter.png" />
@@ -80,10 +81,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="CameraMaui" Version="1.4.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.14" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.21" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>

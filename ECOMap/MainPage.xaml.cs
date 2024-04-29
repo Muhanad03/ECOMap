@@ -7,6 +7,11 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace ECOMap
 {
@@ -16,9 +21,6 @@ namespace ECOMap
         public MainPage()
         {
             InitializeComponent();
-
-            LoadPolygonFromFile();
-
 
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
@@ -32,71 +34,59 @@ namespace ECOMap
             {
                 Debug.WriteLine("Network error: "+ex.Message);
             }
-            
-      
+
+            //added the Charlton Kings polygon
+            LoadPolygonFromWeb();
+
         }
 
-
-        private void LoadPolygonFromFile()
+        //So the Charlton Kings polygon loads here
+        private async void LoadPolygonFromWeb()
         {
             try
             {
-                // Read the contents of the text file
-                string filePath = "Resources/Charlton Kings Area.txt";
-                string fileContents = File.ReadAllText(filePath);
+                using var httpClient = new HttpClient();
+                string url = "https://mapit.mysociety.org/area/4533.geojson";
+                string stringResult;
 
-                // Parse the polygon boundary coordinates
-                List<Tuple<double, double>> polygonCoordinates = ParsePolygonCoordinates(fileContents);
 
-                // Create a polygon using the parsed coordinates
-                AddPolygonToMap(polygonCoordinates);
+                stringResult = await httpClient.GetStringAsync(url);
+
+                // Parse the JSON data directly
+                dynamic jsonData = JsonConvert.DeserializeObject(stringResult);
+
+                if (jsonData != null && jsonData.type == "Polygon")
+                {
+                    var coordinates = jsonData.coordinates[0]; // Extract coordinates array
+
+                    var mapPolygon = new Microsoft.Maui.Controls.Maps.Polygon
+                    {
+                        StrokeWidth = 8,
+                        StrokeColor = Color.Parse("#1BA1E2"),
+                        FillColor = Color.Parse("#881BA1E2"),
+                    };
+
+                    foreach (var coordinate in coordinates)
+                    {
+                        double latitude = coordinate[1].Value;
+                        double longitude = coordinate[0].Value;
+
+                        mapPolygon.Geopath.Add(new Location(latitude, longitude));
+                    }
+
+                    map.MapElements.Add(mapPolygon);
+                }
+
+                else
+                {
+                    Console.WriteLine("Invalid GeoJSON format or no Polygon data found.");
+                }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions
-                Console.WriteLine($"Error loading polygon: {ex.Message}");
+                Console.WriteLine($"Error loading polygon from web: {ex.Message}");
+                return;
             }
-        }
-
-
-        private List<Tuple<double, double>> ParsePolygonCoordinates(string fileContents)
-        {
-            List<Tuple<double, double>> polygonCoordinates = new List<Tuple<double, double>>();
-
-            // Remove unnecessary text and split the coordinates
-            string[] parts = fileContents.Replace("POLYGON ((", "").Replace("))", "").Split(',');
-
-            foreach (string part in parts)
-            {
-                // Split each coordinate pair and parse latitude and longitude
-                string[] coordinates = part.Trim().Split(' ');
-                double latitude = double.Parse(coordinates[0]);
-                double longitude = double.Parse(coordinates[1]);
-
-                polygonCoordinates.Add(new Tuple<double, double>(latitude, longitude));
-            }
-
-            return polygonCoordinates;
-        }
-
-        private void AddPolygonToMap(List<Tuple<double, double>> polygonCoordinates)
-        {
-            // Create a polygon using the parsed coordinates
-            Polygon polygon = new Polygon
-            {
-                StrokeWidth = 2,
-                StrokeColor = Color.Red,
-                FillColor = Color.FromRgba(255, 0, 0, 128)
-            };
-
-            // Add the coordinates to the polygon
-            foreach (var coordinate in polygonCoordinates)
-            {
-                polygon.Geopath.Add(new Position(coordinate.Item1, coordinate.Item2));
-            }
-
-            // Add the polygon to the map
-            map.Polygons.Add(polygon);
         }
 
         private async void UpdatePins()
