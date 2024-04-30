@@ -6,23 +6,27 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace ECOMap.API
 {
     public class ApiService
     {
         private HttpClient _httpClient;
+        private string TreeEndPoint = "treePoints/";
+        private string UserEndPoint = "userHandler/";
+
 
         public ApiService()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://ct503824grp5-ct5038.uogs.co.uk/ECOMapAPI/treePoints/");
+            _httpClient.BaseAddress = new Uri("https://ct503824grp5-ct5038.uogs.co.uk/ECOMapAPI/");
 
         }
 
         public async Task<List<treeData>> GetTreeDataAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("read.php");
+            HttpResponseMessage response = await _httpClient.GetAsync($"{TreeEndPoint}read.php");
             try
             {
                 response.EnsureSuccessStatusCode();
@@ -61,13 +65,13 @@ namespace ECOMap.API
                     }
                     else
                     {
-                        Console.WriteLine("No tree data found");
+                        Debug.WriteLine("No tree data found");
                         return new List<treeData>();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("API returned an error");
+                    Debug.WriteLine("API returned an error");
                     return new List<treeData>();
                 }
             }catch(HttpRequestException ex)
@@ -92,7 +96,7 @@ namespace ECOMap.API
                 var content = new StringContent(jsonTree, Encoding.UTF8, "application/json");
 
                 // Send the POST request to the API endpoint
-                HttpResponseMessage response = await _httpClient.PostAsync("create.php", content);
+                HttpResponseMessage response = await _httpClient.PostAsync(TreeEndPoint+"create.php", content);
 
                 // Check if the request was successful
                 response.EnsureSuccessStatusCode();
@@ -119,11 +123,71 @@ namespace ECOMap.API
         }
 
 
-        public async Task SendImage()
+
+        public async Task<string> checkLogin(userLoginDetails user)
         {
 
+            try
+            {
+                string jsonTree = JsonConvert.SerializeObject(user);
+                Debug.WriteLine(jsonTree);
+
+                var content = new StringContent(jsonTree, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{UserEndPoint}login.php", content);
+
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine($"Response from server: {responseBody}");
+
+                return responseBody;
+            }
+            catch (HttpRequestException ex)
+            {
+                return $"HTTP request error: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                return $"Error checking user data: {ex.Message}";
+            }
         }
 
+
+        //public async Task<string> PostImage(imageData image)
+        //{
+        //    try
+        //    {
+        //        string jsonTree = JsonConvert.SerializeObject(image);
+        //        Debug.WriteLine(jsonTree);
+
+        //        var content = new StringContent(jsonTree, Encoding.UTF8, "application/json");
+
+        //        HttpResponseMessage response = await _httpClient.PostAsync("imageupload.php", content);
+
+        //        response.EnsureSuccessStatusCode();
+
+        //        string responseBody = await response.Content.ReadAsStringAsync();
+
+        //        Console.WriteLine($"Response from server: {responseBody}");
+
+        //        return responseBody;
+        //    }
+        //    catch (HttpRequestException ex)
+        //    {
+        //        return $"HTTP request error: {ex.Message}";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return $"Error adding tree data: {ex.Message}";
+        //    }
+        //}
+
+
+
+
+      
 
 
 
@@ -168,6 +232,10 @@ namespace ECOMap.API
         [JsonProperty("User_ID")]
         public int id { get; set; }
 
+
+        [JsonProperty("Email")]
+        public string email { get; set; }
+
         [JsonProperty("First_Name")]
         public string first_Name { get; set; }
 
@@ -189,6 +257,15 @@ namespace ECOMap.API
 
 
 
+    }
+
+    public class userLoginDetails
+    {
+        [JsonProperty("email")]
+        public string email { get; set; }
+
+        [JsonProperty("password")]
+        public string password { get; set; }
     }
 
     public class imageData

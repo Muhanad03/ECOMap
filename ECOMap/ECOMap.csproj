@@ -114,6 +114,9 @@
 	  <MauiXaml Update="SignInPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="WalkingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

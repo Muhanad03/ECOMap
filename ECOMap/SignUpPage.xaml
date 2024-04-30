@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ECOMap"
-             x:Class="ECOMap.SignInPage"
-             Title="SignInPage"
+             x:Class="ECOMap.SignUpPage"
+             Title="SignUpPage"
              Shell.NavBarIsVisible="False">
 
 
@@ -35,7 +35,7 @@
                        TextColor="#2d2d2d"/>
 
                 <Label FontFamily="regular"
-                       Text="Login to gain access to the cool stuff!"
+                       Text="Register to gain access to the cool stuff!"
                        TextColor="#1c7319"/>
 
                 <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
@@ -61,44 +61,30 @@
                                     HeightRequest="60"
                                     WidthRequest="60"
                                     HorizontalOptions="Center"
-                                    VerticalOptions="Center"/>      
+                                    VerticalOptions="Center"/>
                     <Image HorizontalOptions="Center" Source="password_icon.png" WidthRequest="48">
                     </Image>
                     <Entry Grid.Column="1"
                            Placeholder="Enter your password here"
                            VerticalOptions="Center"
                            IsPassword="True"
-                           x:Name="Password_Entry"/>   
+                           x:Name="Password_Entry"/>
 
                 </Grid>
-                
+
 
                 <Button 
                     Margin="0,20,0,0"
                     BackgroundColor="#40C057"
                     HeightRequest="60"
                     FontFamily="bold"
-                    Text="Login"
+                    Text="Register"
                     TextColor="#FBF6FD"
-                    x:Name="loginBtn"
-                    Clicked="loginBtn_Clicked"/>
-                <Grid Margin="0,4,0,0" ColumnDefinitions=".1*,0.8*">
-                    <CheckBox x:Name="ViewPassword_CheckBox" Margin="0,10,0,0" HorizontalOptions="Start" />
-                    <Label Grid.Column="1" VerticalOptions="Center" Text="Show password"/>
-                </Grid>
+                    x:Name="registerBtn"
+                    Clicked="registerBtn_Clicked"/>
+                
 
-                <Button Margin="0,20,0,-10"
-                       HorizontalOptions="Center"
-                       Text="Forgot your password?"
-                       TextColor="Blue"
-                        BackgroundColor="Transparent"/>
-                <Button Margin="0,30,0,0"
-                       Text="Create an account"
-                       TextColor="#40C057"
-                        FontFamily="regular"
-                        HeightRequest="60"
-                        BackgroundColor="#D3EDD6"
-                        Clicked="CreateAccount_Clicked"/>
+              
 
 
             </VerticalStackLayout>

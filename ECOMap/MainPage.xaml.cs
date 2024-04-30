@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Maps;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text;
 namespace ECOMap
@@ -13,13 +14,13 @@ namespace ECOMap
         {
             InitializeComponent();
 
-
             map.MoveToRegion(MapSpan.FromCenterAndRadius(new Location(51.74171, -2.21926),Distance.FromMiles(10)));
             NetworkAccess accessType = Connectivity.Current.NetworkAccess;
             try
             {
                 if (accessType == NetworkAccess.Internet)
                 {
+                    LoadPolygonFromWeb();
                     SetMap();
                 }
             }catch (Exception ex) 
@@ -136,7 +137,53 @@ namespace ECOMap
                 // You can implement your logic here to navigate to another page or display more information
             }
         }
+        private async void LoadPolygonFromWeb()
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                string url = "https://mapit.mysociety.org/area/4533.geojson";
+                string stringResult;
 
+
+                stringResult = await httpClient.GetStringAsync(url);
+
+                // Parse the JSON data directly
+                dynamic jsonData = JsonConvert.DeserializeObject(stringResult);
+
+                if (jsonData != null && jsonData.type == "Polygon")
+                {
+                    var coordinates = jsonData.coordinates[0]; // Extract coordinates array
+
+                    var mapPolygon = new Microsoft.Maui.Controls.Maps.Polygon
+                    {
+                        StrokeWidth = 8,
+                        StrokeColor = Color.Parse("#1BA1E2"),
+                        FillColor = Color.Parse("#881BA1E2"),
+                    };
+
+                    foreach (var coordinate in coordinates)
+                    {
+                        double latitude = coordinate[1].Value;
+                        double longitude = coordinate[0].Value;
+
+                        mapPolygon.Geopath.Add(new Location(latitude, longitude));
+                    }
+
+                    map.MapElements.Add(mapPolygon);
+                }
+
+                else
+                {
+                    Console.WriteLine("Invalid GeoJSON format or no Polygon data found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading polygon from web: {ex.Message}");
+                return;
+            }
+        }
 
 
         protected override async void OnAppearing()

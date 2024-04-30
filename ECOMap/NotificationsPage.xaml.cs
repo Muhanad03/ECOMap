@@ -14,7 +14,7 @@ namespace ECOMap
            
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             //var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
