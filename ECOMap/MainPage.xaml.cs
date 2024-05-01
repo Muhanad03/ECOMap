@@ -189,6 +189,7 @@ namespace ECOMap
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            map.Focus();
 
             var check = await CheckPins();
 

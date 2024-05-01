@@ -6,99 +6,62 @@
              Title="SignUpPage"
              Shell.NavBarIsVisible="False">
 
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="7*" />
+            </Grid.RowDefinitions>
 
-    <Grid RowDefinitions=".3*,0.7*">
+            <Image Aspect="AspectFill" Source="background4.jpg"/>
 
-        <Image Aspect="AspectFill" Source="background4.jpg"/>
+            <Grid BackgroundColor="Black" Opacity="0.4"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1" HeightRequest="100" IsAnimationPlaying="True" Source="happy_girl.gif"/>
+            </Grid>
 
-        <Grid BackgroundColor="Black" Opacity="0.4"/>
-        <Grid ColumnDefinitions="*,*">
-            <!--Logo goes in here
-            <Image Aspect="AspectFill"
-                   HeightRequest="120"
-                   Source="Logo"-->
-            <Image Grid.Column="1" HeightRequest="100"
-                   IsAnimationPlaying="True" Source="happy_girl.gif"/>
+            <Grid Grid.Row="1">
+                <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="White"/>
+                <StackLayout Margin="30,0,30,0">
+                    <Label FontAttributes="Bold" FontFamily="bold" FontSize="Medium" Text="Welcome! :)" TextColor="#2d2d2d"/>
+                    <Label FontFamily="regular" Text="Register to gain access to the cool stuff!" TextColor="#1c7319"/>
+
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
+                        <RoundRectangle Background="#EDEBF6" CornerRadius="10" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image HorizontalOptions="Center" Source="person_icon.png" WidthRequest="39"/>
+                        <Entry Grid.Column="1" Placeholder="Enter your first name" VerticalOptions="Center" x:Name="FirstName_Entry"/>
+                    </Grid>
+
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
+                        <RoundRectangle Background="#EDEBF6" CornerRadius="10" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image HorizontalOptions="Center" Source="person_icon.png" WidthRequest="39"/>
+                        <Entry Grid.Column="1" Placeholder="Enter your last name" VerticalOptions="Center"  x:Name="LastName_Entry"/>
+                    </Grid>
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
+                        <RoundRectangle Background="#EDEBF6" CornerRadius="10" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image HorizontalOptions="Center" Source="email_icon.png" WidthRequest="35"/>
+                        <Entry Grid.Column="1" Placeholder="Enter your email" VerticalOptions="Center" x:Name="Email_Entry"/>
+                    </Grid>
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
+                        <RoundRectangle Background="#EDEBF6" CornerRadius="10" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image HorizontalOptions="Center" Source="password_icon.png" WidthRequest="40"/>
+                        <Entry Grid.Column="1" Placeholder="Enter your password here" VerticalOptions="Center" IsPassword="True" x:Name="Password_Entry"/>
+                    </Grid>
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
+                        <RoundRectangle Background="#EDEBF6" CornerRadius="10" HeightRequest="60" WidthRequest="60" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image HorizontalOptions="Center" Source="password_icon.png" WidthRequest="40"/>
+                        <Entry Grid.Column="1" Placeholder="Confirm your password" VerticalOptions="Center" IsPassword="True" x:Name="Password_Entry2"/>
+                    </Grid>
+
+
+                    <Button Margin="0,20,0,0" BackgroundColor="#40C057" HeightRequest="60" FontFamily="bold" Text="Register" TextColor="#FBF6FD" x:Name="registerBtn" Clicked="registerBtn_Clicked"/>
+                </StackLayout>
+            </Grid>
         </Grid>
-
-        <Grid Grid.Row="1">
-
-            <RoundRectangle Margin="-5,-30,-5,-2"
-                            CornerRadius="30,30,0,0"
-                            Fill="White"
-                            />
-            <VerticalStackLayout Margin="30,0,30,0">
-                <Label FontAttributes="Bold"
-                       FontFamily="bold"
-                       FontSize="Medium"
-                       Text="Welcome! :)"
-                       TextColor="#2d2d2d"/>
-
-                <Label FontFamily="regular"
-                       Text="Register to gain access to the cool stuff!"
-                       TextColor="#1c7319"/>
-
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
-
-                    <RoundRectangle Background="#EDEBF6"
-                                    CornerRadius="10"
-                                    HeightRequest="60"
-                                    WidthRequest="60"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"/>
-                    <Image HorizontalOptions="Center" Source="email_icon.png" WidthRequest="39">
-                    </Image>
-                    <Entry Grid.Column="1"
-                           Placeholder="Enter your email address here"
-                           VerticalOptions="Center"
-                           x:Name="Email_Entry"/>
-
-                </Grid>
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,0.8*">
-
-                    <RoundRectangle Background="#EDEBF6"
-                                    CornerRadius="10"
-                                    HeightRequest="60"
-                                    WidthRequest="60"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"/>
-                    <Image HorizontalOptions="Center" Source="password_icon.png" WidthRequest="48">
-                    </Image>
-                    <Entry Grid.Column="1"
-                           Placeholder="Enter your password here"
-                           VerticalOptions="Center"
-                           IsPassword="True"
-                           x:Name="Password_Entry"/>
-
-                </Grid>
-
-
-                <Button 
-                    Margin="0,20,0,0"
-                    BackgroundColor="#40C057"
-                    HeightRequest="60"
-                    FontFamily="bold"
-                    Text="Register"
-                    TextColor="#FBF6FD"
-                    x:Name="registerBtn"
-                    Clicked="registerBtn_Clicked"/>
-                
-
-              
-
-
-            </VerticalStackLayout>
-
-        </Grid>
-
-
-
-    </Grid>
-
-
-
-
-
-
+    </ScrollView>
 
 </ContentPage>
