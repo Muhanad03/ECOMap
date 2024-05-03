@@ -59,6 +59,17 @@
 
 
                     <Button Margin="0,20,0,0" BackgroundColor="#40C057" HeightRequest="60" FontFamily="bold" Text="Register" TextColor="#FBF6FD" x:Name="registerBtn" Clicked="registerBtn_Clicked"/>
+                    <Button Margin="0,20,0,0"
+                           HorizontalOptions="Center"
+                           Text="Already got an account?"
+                           x:Name="GoBackToLogin"
+                           TextColor="Blue"
+                           BackgroundColor="Transparent"/>
+                    <Button Margin="0,20,0,0"
+                            HorizontalOptions="Center"
+                            Text="Already got an account?"
+                            TextColor="Transparent"
+                            BackgroundColor="Transparent"/>
                 </StackLayout>
             </Grid>
         </Grid>

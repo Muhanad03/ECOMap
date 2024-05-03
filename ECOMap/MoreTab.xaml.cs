@@ -1,3 +1,5 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using ECOMap.config;
 using Microsoft.Maui.Controls;
 
 namespace ECOMap
@@ -7,53 +9,24 @@ namespace ECOMap
         public MoreTab()
         {
             InitializeComponent();
-            PopulateListView();
+  
           
         }
 
-        private void PopulateListView()
+       
+        protected override void OnAppearing()
         {
-            var pageNames = new List<PageName>
-            {
-               new PageName(){Title = "QR Scanner"},
-               new PageName(){Title = "Settings"},
-               new PageName(){Title = "Info"},
-               new PageName(){Title = "Login"},
+            base.OnAppearing();
 
-            };
+           
 
-            PagesListView.ItemsSource = pageNames;
+
         }
 
-        private async void PagesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void PageNameLabel_Clicked(object sender, EventArgs e)
         {
-            if (e.SelectedItem == null)
-                return;
-
-            var pageName = (PageName)e.SelectedItem;
-            var temp = pageName.Title;
-            // Navigate to the selected content page
-            switch (temp)
-            {
-                case "QR Scanner":
-                    await Navigation.PushAsync(new ScanQrPage());
-                    break;
-                case "Settings":
-                    await Navigation.PushAsync(new SettingsPage());
-                    break;
-
-                case "Login":
-                    await Navigation.PushAsync(new SignInPage());
-                    break;
-            }
-
-            // Deselect the item
-            PagesListView.SelectedItem = null;
+            Navigation.PushAsync(new SignInPage()); 
         }
     }
 }
 
-public partial class PageName
-{
-    public string Title { get; set; }   
-}

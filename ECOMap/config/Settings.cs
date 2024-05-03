@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECOMap.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -10,6 +11,9 @@ namespace ECOMap.config
     public class Settings
     {
         public static string MainGreenColor = "#40C057";
+        public static string Token_Name = "AuthToken";
+        public static bool IsUserLoggedIn = false;
+        public static userData? CurrentUser = null;
         /*
          * 
          * user enters the password 
@@ -29,26 +33,29 @@ namespace ECOMap.config
          */
 
 
-  
-        public static string? hashPassword(string passwordToHash)
+
+        public static string hashPassword(string passwordToHash)
         {
-            if(passwordToHash != null)
+            if (passwordToHash != null)
             {
                 using (var sha256 = SHA256.Create())
                 {
                     var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordToHash));
 
-                    var t = Convert.ToBase64String(hashedBytes);
-
-                    return t;
+                    StringBuilder builder = new StringBuilder();
+                    foreach (byte b in hashedBytes)
+                    {
+                        builder.Append(b.ToString("x2"));
+                    }
+                    return builder.ToString();
                 }
             }
             else
             {
                 return null;
             }
-            
         }
+
 
     }
 }

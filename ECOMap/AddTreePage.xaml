@@ -2,70 +2,103 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ECOMap.AddTreePage"
-             Title=""
-             Shell.BackgroundColor="Transparent">
+             Title="Add Tree Details"
+             Shell.BackgroundColor="LightGray">
 
     <ScrollView>
         <StackLayout Margin="20"
                      HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand"
-                     BackgroundColor="#FFFFFF"
+                     BackgroundColor="#FAFAFA"
                      Spacing="20">
 
-            <!-- Tree Type Entry -->
-            <Frame BorderColor="#1c7319" CornerRadius="5">
+            <CollectionView x:Name="imagesCollection" 
+                HeightRequest="200" 
+                ItemsLayout="HorizontalList" 
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding .}" Aspect="AspectFill" 
+                   HeightRequest="190" WidthRequest="190" 
+                   Margin="5"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Buttons for image operations -->
+            <Button Text="Select Image" BackgroundColor="#4CAF50"            
+                     Clicked="OnSelectImageButtonClicked"/>
+            
+            
+            <Button Text="Take Photo" BackgroundColor="#4CAF50" 
+                Clicked="OnTakePhotoButtonClicked"/>
+
+
+
+            <!-- Entry for Tree Type -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Tree Type" TextColor="Black" VerticalOptions="Center"/>
+                    <Label Text="Tree Type" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
                     <Entry Placeholder="Enter tree type" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </Frame>
 
-
-            <!-- Height Entry -->
-            <Frame BorderColor="#1c7319" CornerRadius="5">
+            <!-- Entry for Height with Picker for unit selection -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Height" TextColor="Black" VerticalOptions="Center"/>
+                    <Label Text="Height" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
                     <Entry Placeholder="Enter height" HorizontalOptions="FillAndExpand" />
+                    <Picker HorizontalOptions="End" WidthRequest="100" Title="Unit">
+                        <Picker.Items>
+                            <x:String>Meters</x:String>
+                            <x:String>Feet</x:String>
+                        </Picker.Items>
+                    </Picker>
                 </StackLayout>
             </Frame>
 
-            <!-- Circumference Entry -->
-            <Frame BorderColor="#1c7319" CornerRadius="5">
+            <!-- Entry for Circumference with Picker for unit selection -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Circumference" TextColor="Black" VerticalOptions="Center"/>
+                    <Label Text="Circumference" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
                     <Entry Placeholder="Enter circumference" HorizontalOptions="FillAndExpand" />
+                    <Picker HorizontalOptions="End" WidthRequest="100" Title="Unit">
+                        <Picker.Items>
+                            <x:String>Inches</x:String>
+                            <x:String>Centimeters</x:String>
+                        </Picker.Items>
+                    </Picker>
                 </StackLayout>
             </Frame>
 
-            <!-- Plant Age Entry -->
-            <Frame BorderColor="#1c7319" CornerRadius="5">
+            
+            <!-- Frame for Plant Age Dropdown Appearance -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5" BackgroundColor="White">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Plant Age" TextColor="Black" VerticalOptions="Center"/>
-                    <Entry Placeholder="Enter plant age" HorizontalOptions="FillAndExpand" />
+                    <Label Text="Plant Age" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
+                    <Picker HorizontalOptions="FillAndExpand" Title="Select age range">
+                        <Picker.Items>
+                            <x:String>0-5 years</x:String>
+                            <x:String>5-20 years</x:String>
+                            <x:String>20+ years</x:String>
+                            <x:String>Unknown</x:String>
+                        </Picker.Items>
+                    </Picker>
                 </StackLayout>
             </Frame>
 
-            <!-- Pictures Label -->
-            <Label Text="Pictures (required)" TextColor="Black" HorizontalOptions="Center"/>
 
-            <!-- Upload and Camera Buttons -->
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Center"
-                         Spacing="10">
-                <Button Text="Upload" BackgroundColor="#1c7319" Pressed="Button_Pressed" Released="Button_Released"/>
-                <Button Text="Camera" BackgroundColor="#1c7319" Pressed="Button_Pressed" Released="Button_Released"/>
-            </StackLayout>
-
-            <!-- Comment Entry -->
-            <Frame BorderColor="#1c7319" CornerRadius="5">
+            <!-- Entry for Comment -->
+            <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Comment" TextColor="Black" VerticalOptions="Center"/>
-                    <Entry Placeholder="Enter comment" HorizontalOptions="FillAndExpand" />
+                    <Label Text="Comment" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
+                    <Editor Placeholder="Enter comment" HorizontalOptions="FillAndExpand" AutoSize="TextChanges" />
                 </StackLayout>
             </Frame>
 
             <!-- Confirm Button -->
-            <Button Text="Confirm"  BackgroundColor="#1c7319" Pressed="Button_Pressed" Released="Button_Released"/>
+            <Button Text="Confirm" BackgroundColor="#4CAF50" Margin="10"/>
+
         </StackLayout>
     </ScrollView>
 </ContentPage>

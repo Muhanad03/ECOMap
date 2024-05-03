@@ -4,14 +4,7 @@
              x:Class="ECOMap.MoreTab"
              Title="                      MoreTab">
     <ContentPage.Content>
-        <ListView x:Name="PagesListView" ItemSelected="PagesListView_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <local:CustomCell/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Button x:Name="PageNameLabel" Text ="Login" FontSize="Medium" VerticalOptions="CenterAndExpand"
+                FontAttributes="Italic" TextColor="Green" Clicked="PageNameLabel_Clicked"/>
     </ContentPage.Content>
 </ContentPage>

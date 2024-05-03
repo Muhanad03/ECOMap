@@ -54,7 +54,6 @@ namespace ECOMap.API
                                 height = Convert.ToDouble(item["Height"]),
                                 circumference = Convert.ToDouble(item["Circumference"]),
                                 plant_Age = item["Plant_Age"].ToString(),
-                                planter_Name = item["Planter_Name"].ToString()
 
                             };
 
@@ -122,6 +121,35 @@ namespace ECOMap.API
             }
         }
 
+        public async Task<string> RegisterNewUser(userData user)
+        {
+            try
+            {
+                string jsonUser = JsonConvert.SerializeObject(user);
+                Debug.WriteLine(jsonUser);
+
+                var content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _httpClient.PostAsync(UserEndPoint + "register.php", content);
+
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine($"Response from server: {responseBody}");
+
+                return responseBody;
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle HTTP request-related errors
+                return $"HTTP request error: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                // Handle other types of exceptions
+                return $"Error adding tree data: {ex.Message}";
+            }
+        }
 
 
         public async Task<string> checkLogin(userLoginDetails user)
@@ -221,34 +249,33 @@ namespace ECOMap.API
         [JsonProperty("Plant_Age")]
         public string plant_Age { get; set; }
 
-        [JsonProperty("Planter_Name")]
-        public string planter_Name { get; set; }
+        
 
     }
 
 
     public class userData
     {
-        [JsonProperty("User_ID")]
+        [JsonProperty("user_ID")]
         public int id { get; set; }
 
 
-        [JsonProperty("Email")]
+        [JsonProperty("email")]
         public string email { get; set; }
 
-        [JsonProperty("First_Name")]
+        [JsonProperty("first_name")]
         public string first_Name { get; set; }
 
-        [JsonProperty("Last_Name")]
+        [JsonProperty("last_name")]
         public string last_Name { get; set; }
 
         [JsonProperty("User_Type")]
-        public char user_Type { get; set; }
+        public string user_Type { get; set; }
 
         [JsonProperty("Point_Total")]
         public int total_Points { get; set; }
 
-        [JsonProperty("Password")]
+        [JsonProperty("password")]
         public string password { get; set; }
 
 

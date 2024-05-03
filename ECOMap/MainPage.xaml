@@ -17,7 +17,6 @@
             IsShowingUser="True"
             x:Name="map"
             IsEnabled="False"
-            IsVisible ="Hidden"
             
            
             

@@ -41,7 +41,6 @@ namespace ECOMap
                 Pin pin = new Pin
                 {
                     Label = tree.id.ToString(),
-                    Address = tree.planter_Name,
                     Type = PinType.SavedPin,
                     Location = new Location(tree.longitude, tree.latitude),
                 };
@@ -58,7 +57,6 @@ namespace ECOMap
                 var tempList = treeDataList.Select(tree => new Pin
                 {
                     Label = tree.id.ToString(),
-                    Address = tree.planter_Name,
                     Type = PinType.SavedPin,
                     Location = new Location(tree.longitude, tree.latitude),
                 }).ToList();
@@ -96,8 +94,18 @@ namespace ECOMap
                 var locationRequest = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(2));
                 Location? location = await Geolocation.GetLocationAsync(locationRequest);
 
-                var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
+                if (location != null)
+                {
+                    map.IsVisible = true;
 
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(1)));
+                }
+                else
+                {
+                    await DisplayAlert("Can't detect your current location", "Try restarting the app", "OK");
+                }
+
+                var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();
                 foreach (var treeData in treeDataList)
                 {
                     Pin pin = new Pin
@@ -111,18 +119,9 @@ namespace ECOMap
                     pin.MarkerClicked += Pin_InfoWindowClicked;
                     map.Pins.Add(pin);
                 }
-
-                if (location != null)
-                {
-                    map.IsVisible = true;
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(location, Distance.FromMiles(0.1)));
-                }
-                else
-                {
-                    await DisplayAlert("Can't detect your current location", "Try restarting the app", "OK");
-                }
             }
         }
+
 
         private async void Pin_InfoWindowClicked(object sender, EventArgs e)
         {
@@ -191,12 +190,14 @@ namespace ECOMap
             base.OnAppearing();
             map.Focus();
 
-            var check = await CheckPins();
+            //var check =  await CheckPins();
 
-            if (check == false)
-            {
-                UpdatePins();
-            }
+            //if (check == false)
+            //{
+            //    Debug.WriteLine("PINSSS");
+            //    UpdatePins();
+
+            //}
            
 
 
@@ -218,7 +219,7 @@ namespace ECOMap
 
 
 
-        async Task<PermissionStatus> CheckAndRequestLocationPermission()
+        private async Task<PermissionStatus> CheckAndRequestLocationPermission()
         {
             PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 

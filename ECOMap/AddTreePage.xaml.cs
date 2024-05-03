@@ -1,24 +1,66 @@
-using ECOMap.Services;
+using Microsoft.Maui.Storage;
+using System.Collections.ObjectModel;
 
 namespace ECOMap;
 
+
+
 public partial class AddTreePage : ContentPage
 {
-    
-	public AddTreePage()
-	{
+    ObservableCollection<ImageSource> imageSources = new ObservableCollection<ImageSource>();
+
+    public AddTreePage()
+    {
         InitializeComponent();
-
-    }
-    private void Button_Pressed(object sender, EventArgs e)
-    {
-        ((Button)sender).BackgroundColor = Colors.White;
-
-        var s = new UploadImage().OpenMedia();
+        imagesCollection.ItemsSource = imageSources;
     }
 
-    private void Button_Released(object sender, EventArgs e)
+    private async void OnSelectImageButtonClicked(object sender, EventArgs e)
     {
-        ((Button)sender).BackgroundColor = new Color(28, 115, 25);
+        var result = await FilePicker.PickMultipleAsync(new PickOptions
+        {
+            PickerTitle = "Select up to 5 images",
+            FileTypes = FilePickerFileType.Images,
+        });
+
+        if (result != null)
+        {
+            foreach (var imageFile in result)
+            {
+                var stream = await imageFile.OpenReadAsync();
+                ImageSource source = ImageSource.FromStream(() => stream);
+                if (imageSources.Count < 5) // Limit to 5 images
+                {
+                    imageSources.Add(source);
+                }
+            }
+        }
+    }
+
+    private async void OnTakePhotoButtonClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            if (!MediaPicker.IsCaptureSupported)
+            {
+                await DisplayAlert("No Camera", ":( No camera available.", "OK");
+                return;
+            }
+
+            var photo = await MediaPicker.CapturePhotoAsync();
+            if (photo != null)
+            {
+                var stream = await photo.OpenReadAsync();
+                ImageSource source = ImageSource.FromStream(() => stream);
+                if (imageSources.Count < 5) 
+                {
+                    imageSources.Add(source);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Failed to capture photo", ex.Message, "OK");
+        }
     }
 }
