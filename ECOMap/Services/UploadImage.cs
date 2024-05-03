@@ -43,19 +43,20 @@ namespace ECOMap.Services
             return ImageSource.FromStream(() => stream);
         }
 
-        public async Task<string> ImageToBase64(FileResult fileResult)
+        public async Task<string> ImageToBase64(Stream imageStream)
         {
-            if (fileResult == null)
+            if (imageStream == null || !imageStream.CanRead)
                 return null;
 
-            var stream = await fileResult.OpenReadAsync();
             using (MemoryStream ms = new MemoryStream())
             {
-                stream.CopyTo(ms);
+                await imageStream.CopyToAsync(ms);
                 byte[] imageBytes = ms.ToArray();
                 return Convert.ToBase64String(imageBytes);
             }
         }
+
+
 
         public async Task<Image> Base64ToImage(string base64String)
         {

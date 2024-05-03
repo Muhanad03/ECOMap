@@ -1,10 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ECOMap"
              x:Class="ECOMap.MoreTab"
-             Title="                      MoreTab">
-    <ContentPage.Content>
-        <Button x:Name="PageNameLabel" Text ="Login" FontSize="Medium" VerticalOptions="CenterAndExpand"
-                FontAttributes="Italic" TextColor="Green" Clicked="PageNameLabel_Clicked"/>
-    </ContentPage.Content>
+             Title="More Options">
+
+    <ScrollView>
+        <VerticalStackLayout 
+            Padding="30"
+            Spacing="15"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="FillAndExpand">
+
+            <!-- Stylish Button for Login -->
+            <Button Text="Login" 
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#4CAF50"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="Login_Clicked"/>
+            <Button Text="Scan QR Code" 
+                     FontSize="Medium"
+                     FontAttributes="Bold"
+                     TextColor="White"
+                     BackgroundColor="IndianRed"
+                     CornerRadius="10"
+                     HeightRequest="50"
+                     Clicked="ScanQR_Clicked"/>
+            <Button Text="Trees Guide" 
+                     FontSize="Medium"
+                     FontAttributes="Bold"
+                     TextColor="White"
+                     BackgroundColor="SlateGray"
+                     CornerRadius="10"
+                     HeightRequest="50"
+                     Clicked="TreeGuide_Clicked"/>
+
+            <!-- Additional buttons for other pages -->
+            <Button Text="Settings" 
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#2196F3"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="Settings_Clicked"/>
+
+            <Button Text="Profile" 
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#FF9800"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="Profile_Clicked"/>
+
+            <Button Text="Help" 
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#9C27B0"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="Help_Clicked"/>
+
+            <Button Text="About Us" 
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    BackgroundColor="#009688"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="AboutUs_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

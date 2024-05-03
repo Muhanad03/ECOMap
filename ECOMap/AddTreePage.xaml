@@ -39,7 +39,7 @@
             <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Tree Type" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
-                    <Entry Placeholder="Enter tree type" HorizontalOptions="FillAndExpand" />
+                    <Entry x:Name="TreeType_Entry"  Placeholder="Enter tree type" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </Frame>
 
@@ -47,8 +47,8 @@
             <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Height" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
-                    <Entry Placeholder="Enter height" HorizontalOptions="FillAndExpand" />
-                    <Picker HorizontalOptions="End" WidthRequest="100" Title="Unit">
+                    <Entry x:Name="Height_Entry" Placeholder="Enter height" HorizontalOptions="FillAndExpand" />
+                    <Picker x:Name="Height_Picker" HorizontalOptions="End" WidthRequest="100" Title="Unit">
                         <Picker.Items>
                             <x:String>Meters</x:String>
                             <x:String>Feet</x:String>
@@ -61,8 +61,8 @@
             <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Circumference" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
-                    <Entry Placeholder="Enter circumference" HorizontalOptions="FillAndExpand" />
-                    <Picker HorizontalOptions="End" WidthRequest="100" Title="Unit">
+                    <Entry x:Name ="Circumference_Entry" Placeholder="Enter circumference" HorizontalOptions="FillAndExpand" />
+                    <Picker x:Name="Circumference_Picker" HorizontalOptions="End" WidthRequest="100" Title="Unit">
                         <Picker.Items>
                             <x:String>Inches</x:String>
                             <x:String>Centimeters</x:String>
@@ -76,7 +76,7 @@
             <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5" BackgroundColor="White">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Plant Age" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
-                    <Picker HorizontalOptions="FillAndExpand" Title="Select age range">
+                    <Picker x:Name="Age_Picker" HorizontalOptions="FillAndExpand" Title="Select age range">
                         <Picker.Items>
                             <x:String>0-5 years</x:String>
                             <x:String>5-20 years</x:String>
@@ -92,12 +92,12 @@
             <Frame BorderColor="#CCCCCC" CornerRadius="10" Padding="15" Margin="0,5">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Comment" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
-                    <Editor Placeholder="Enter comment" HorizontalOptions="FillAndExpand" AutoSize="TextChanges" />
+                    <Editor x:Name="Comment_Entry" Placeholder="Enter comment" HorizontalOptions="FillAndExpand" AutoSize="TextChanges" />
                 </StackLayout>
             </Frame>
 
             <!-- Confirm Button -->
-            <Button Text="Confirm" BackgroundColor="#4CAF50" Margin="10"/>
+            <Button Text="Confirm" BackgroundColor="#4CAF50" Margin="10" Clicked="Confirm_Clicked"/>
 
         </StackLayout>
     </ScrollView>

@@ -19,7 +19,7 @@
         </Tab>
         <Tab Title="AddTree" Icon="tree_plus.png">
             <ShellContent Title="AddTree"
-                  ContentTemplate = "{DataTemplate local:AddTreePage}" Route = "AddTreePage"/>
+                  ContentTemplate = "{DataTemplate local:TreeConfirmationPage}" Route = "AddTreePage"/>
         </Tab>
         <Tab Title="Walking" Icon="hiking.png">
             <ShellContent Title="Walking"

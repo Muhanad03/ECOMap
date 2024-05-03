@@ -183,39 +183,39 @@ namespace ECOMap.API
         }
 
 
-        //public async Task<string> PostImage(imageData image)
-        //{
-        //    try
-        //    {
-        //        string jsonTree = JsonConvert.SerializeObject(image);
-        //        Debug.WriteLine(jsonTree);
+        public async Task<string> PostImage(imageData image)
+        {
+            try
+            {
+                string jsonTree = JsonConvert.SerializeObject(image);
+                Debug.WriteLine(jsonTree);
 
-        //        var content = new StringContent(jsonTree, Encoding.UTF8, "application/json");
+                var content = new StringContent(jsonTree, Encoding.UTF8, "application/json");
 
-        //        HttpResponseMessage response = await _httpClient.PostAsync("imageupload.php", content);
+                HttpResponseMessage response = await _httpClient.PostAsync(TreeEndPoint+"imageupload.php", content);
 
-        //        response.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
 
-        //        string responseBody = await response.Content.ReadAsStringAsync();
+                string responseBody = await response.Content.ReadAsStringAsync();
 
-        //        Console.WriteLine($"Response from server: {responseBody}");
+                Console.WriteLine($"Response from server: {responseBody}");
 
-        //        return responseBody;
-        //    }
-        //    catch (HttpRequestException ex)
-        //    {
-        //        return $"HTTP request error: {ex.Message}";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return $"Error adding tree data: {ex.Message}";
-        //    }
-        //}
-
-
+                return responseBody;
+            }
+            catch (HttpRequestException ex)
+            {
+                return $"HTTP request error: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                return $"Error adding tree data: {ex.Message}";
+            }
+        }
 
 
-      
+
+
+
 
 
 
@@ -249,7 +249,10 @@ namespace ECOMap.API
         [JsonProperty("Plant_Age")]
         public string plant_Age { get; set; }
 
-        
+        [JsonProperty("Comment")]
+        public string comment{ get; set; }
+
+
 
     }
 
@@ -301,7 +304,7 @@ namespace ECOMap.API
         public int id { get; set; }
         [JsonProperty("Tree_ID")]
         public int tree_id { get; set; }
-        [JsonProperty("User_ID")]
+        [JsonProperty("AddedByUser_ID'")]
         public int user_id { get; set; }
         [JsonProperty("Base64")]
         public string base64 { get; set; }

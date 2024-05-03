@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ECOMap.TreeConfirmationPage"
+             Title="Tree Nearby?"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,*">
+        <!-- Background Image -->
+        <Image Source="forest_background.jpg" Aspect="AspectFill"/>
+
+        <!-- Dark overlay for better visibility of the text -->
+        <Grid BackgroundColor="#000000" Opacity="0.5"/>
+
+        <!-- Content and Overlay -->
+        <Grid Row="1">
+            <RoundRectangle Margin="-5, -30, -5, -2"
+                        CornerRadius="30,30,0,0"
+                        Fill="WhiteSmoke"/>
+
+            <VerticalStackLayout Margin="30, 60, 30, 30" Spacing="20">
+                <Label Text="Are you standing next to a tree?"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   TextColor="Black"
+                   FontAttributes="Bold"/>
+
+                    <!-- Buttons for Yes and No -->
+                    <Button Text="Yes"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="OnYesClicked"/>
+
+                    <Button Text="No"
+                    BackgroundColor="#F44336"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="OnNoClicked"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+
+</ContentPage>

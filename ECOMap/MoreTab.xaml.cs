@@ -9,24 +9,42 @@ namespace ECOMap
         public MoreTab()
         {
             InitializeComponent();
-  
+        }
+
+        private async void Login_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SignInPage());
+        }
+
+        private async void Settings_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SettingsPage());
+        }
+        
+        private async void ScanQR_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ScanQrPage());
+        }
+        private async void Profile_Clicked(object sender, EventArgs e)
+        {
+            
+        }
+    
+        private async void TreeGuide_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new TreeGuidePage());
+        }
+
+        private async void Help_Clicked(object sender, EventArgs e)
+        {
+     
+        }
+
+        private async void AboutUs_Clicked(object sender, EventArgs e)
+        {
           
         }
-
-       
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-           
-
-
-        }
-
-        private void PageNameLabel_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new SignInPage()); 
-        }
     }
+
 }
 
