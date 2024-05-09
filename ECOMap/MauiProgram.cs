@@ -1,4 +1,5 @@
 ﻿using Camera.MAUI;
+using CommunityToolkit.Maui;
 using ECOMap.API;
 using Microsoft.Extensions.Logging;
 
@@ -16,6 +17,7 @@ namespace ECOMap
             builder
                 .UseMauiApp<App>()
                 .UseMauiCameraView()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -26,8 +28,17 @@ namespace ECOMap
                 })
                 .UseMauiMaps();
 
+
+            builder.ConfigureMauiHandlers(handlers =>
+            {
+#if ANDROID || IOS || MACCATALYST
+                handlers.AddHandler<Microsoft.Maui.Controls.Maps.Map, CustomMapHandler>();
+#endif
+            });
+
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
 

@@ -1,9 +1,12 @@
 using ECOMap.API;
+using ECOMap.config;
 using ECOMap.Services;
 using Microsoft.Maui.Controls;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 
 
 namespace ECOMap;
@@ -16,16 +19,22 @@ public partial class AddTreePage : ContentPage
     public AddTreePage()
     {
         InitializeComponent();
+        InitializeLocation();
+        Height_Picker.SelectedIndex = 1;
+        Circumference_Picker.SelectedIndex = 0;
+
         imagesCollection.ItemsSource = imageSources;
     }
+     
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        InitializeLocation();
+   
 
     }
-    private async void InitializeLocation()
+    private async Task InitializeLocation()
     {
+        
         try
         {
             var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -36,21 +45,31 @@ public partial class AddTreePage : ContentPage
 
             if (status == PermissionStatus.Granted)
             {
-                var location = await Geolocation.GetLastKnownLocationAsync();
+                var locationRequest = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10)); 
+                Location? location = await Geolocation.GetLocationAsync(locationRequest);
                 if (location == null)
                 {
                     location = await Geolocation.GetLocationAsync(new GeolocationRequest
                     {
-                        DesiredAccuracy = GeolocationAccuracy.Medium,
-                        Timeout = TimeSpan.FromSeconds(30)
+                        DesiredAccuracy = GeolocationAccuracy.High,
+                        Timeout = TimeSpan.FromSeconds(5) // Increased timeout
+                    });
+                }
+                if (location == null)
+                {
+                    location = await Geolocation.GetLocationAsync(new GeolocationRequest
+                    {
+                        DesiredAccuracy = GeolocationAccuracy.High,
+                        Timeout = TimeSpan.FromSeconds(0.5)
                     });
                 }
 
                 if (location != null)
-                {
+                { 
                     // Update your model or UI here with the location data
                     Longitude = location.Longitude;
                     Latitude = location.Latitude;
+                    Debug.WriteLine($"Long:{Longitude}" +  Longitude);
                 }
             }
             else
@@ -88,13 +107,19 @@ public partial class AddTreePage : ContentPage
             {
                 foreach (var imageFile in results)
                 {
-                    if (imageSources.Count < 5) // Limit to 5 images
+                    
+                    using (var stream = await imageFile.OpenReadAsync())
                     {
-                        var stream = await imageFile.OpenReadAsync();
-                        imageSources.Add(ImageSource.FromStream(() => new MemoryStream((stream as MemoryStream)?.ToArray())));
-                        stream.Position = 0; 
-                        var base64Image = await ConvertStreamToBase64(stream);
-                        base64Images.Add(base64Image); 
+                        var memoryStream = new MemoryStream();
+                        await stream.CopyToAsync(memoryStream);
+
+                        memoryStream.Position = 0;
+                        var imageSource = ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
+                        imageSources.Add(imageSource);
+
+                        memoryStream.Position = 0;
+                        var base64Image = await ConvertStreamToBase64(memoryStream);
+                        base64Images.Add(base64Image);
                     }
                 }
             }
@@ -141,13 +166,14 @@ public partial class AddTreePage : ContentPage
             var treeData = new treeData
             {
                 // Assuming additional properties are properly bound or set
+                tree_type = TreeType_Entry.Text,
                 longitude = Longitude,
                 latitude = Latitude,
                 height = double.Parse(Height_Entry.Text),
                 circumference = double.Parse(Circumference_Entry.Text),
                 plant_Age = Age_Picker.SelectedItem.ToString(),
                 comment = Comment_Entry.Text,
-                addedByUser_ID = 23 // Assuming a fixed user ID for demonstration
+                addedByUser_ID = Settings.CurrentUser.id // Assuming a fixed user ID for demonstration
             };
 
             string response = await new ApiService().AddTreeDataAsync(treeData);
@@ -161,7 +187,7 @@ public partial class AddTreePage : ContentPage
                     var userDataObject = responseObject["data"];
                     if (userDataObject != null)
                     {
-                        var treeId = int.Parse(userDataObject["Tree_ID"].ToString());
+                        var treeId = int.Parse(userDataObject.ToString());
                         await UploadImages(treeId); // Call method to upload images
                     }
                 }

@@ -75,7 +75,7 @@ public partial class SignUpPage : ContentPage
         }
 
 
-         Email = Email_Entry.Text.Trim();
+         Email = Email_Entry.Text.Trim().ToLower();
          First_Name = FirstName_Entry.Text.Trim();
          Last_Name = LastName_Entry.Text.Trim();
          Password1 = Password_Entry.Text.Trim();
@@ -140,6 +140,9 @@ public partial class SignUpPage : ContentPage
 
     }
 
-
+    private void GoBackToLoginBtn_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
 }
 

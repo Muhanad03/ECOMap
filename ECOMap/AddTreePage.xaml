@@ -62,7 +62,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Circumference" FontSize="Medium" TextColor="#333333" VerticalOptions="Center"/>
                     <Entry x:Name ="Circumference_Entry" Placeholder="Enter circumference" HorizontalOptions="FillAndExpand" />
-                    <Picker x:Name="Circumference_Picker" HorizontalOptions="End" WidthRequest="100" Title="Unit">
+                    <Picker x:Name="Circumference_Picker" HorizontalOptions="End" WidthRequest="100" Title="Unit" SelectedIndex="0">
                         <Picker.Items>
                             <x:String>Inches</x:String>
                             <x:String>Centimeters</x:String>

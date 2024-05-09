@@ -69,7 +69,9 @@
                             HorizontalOptions="Center"
                             Text="Already got an account?"
                             TextColor="Transparent"
-                            BackgroundColor="Transparent"/>
+                            BackgroundColor="Transparent"
+                            x:Name="GoBackToLoginBtn"
+                            Clicked="GoBackToLoginBtn_Clicked"/>
                 </StackLayout>
             </Grid>
         </Grid>

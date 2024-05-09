@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ECOMap.TreeGuidePage"
              Title="TreeGuidePage">
-    <VerticalStackLayout>
+    
+    
+    <WebView Source="https://www.gloucestershirewildlifetrust.co.uk/wildlife-explorer/trees-and-shrubs" />
 
-        <WebView Source="https://www.gloucestershirewildlifetrust.co.uk/wildlife-explorer/trees-and-shrubs" />
-
-    </VerticalStackLayout>
 </ContentPage>

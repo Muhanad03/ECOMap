@@ -47,6 +47,7 @@ namespace ECOMap.API
                             treeData tree = new treeData
                             {
                                 id = (int)item["Tree_ID"],
+                                tree_type = item["Tree_Type"].ToString(),
                                 addedByUser_ID = (int)item["AddedByUser_ID"],
                                 guardian_ID = (int?)item["Guardian_ID"],
                                 longitude = Convert.ToDouble(item["Longitude"]),
@@ -54,6 +55,7 @@ namespace ECOMap.API
                                 height = Convert.ToDouble(item["Height"]),
                                 circumference = Convert.ToDouble(item["Circumference"]),
                                 plant_Age = item["Plant_Age"].ToString(),
+
 
                             };
 
@@ -212,6 +214,61 @@ namespace ECOMap.API
             }
         }
 
+        public async Task<List<imageData>> GetTreeImages(int treeId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"{TreeEndPoint}getimage.php?id={treeId}");
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                JObject responseObject = JObject.Parse(jsonResponse);
+
+                if (responseObject["status"] != null && (int)responseObject["status"] == 200)
+                {
+                    if (responseObject["data"] != null)
+                    {
+                        JArray dataArray = (JArray)responseObject["images"];
+
+                        List<imageData> treeDataList = new List<imageData>();
+
+                        foreach (var item in dataArray)
+                        {
+                            imageData tree = new imageData
+                            {
+                                id = (int)item["Picture_ID"],
+                                tree_id = (int)item["Tree_ID"],
+                                user_id = (int)item["User_ID"],
+                                base64 = item["image"].ToString()
+                                
+
+
+                            };
+
+                            treeDataList.Add(tree);
+                        }
+
+                        return treeDataList;
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No tree data found");
+                        return new List<imageData>();
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("API returned an error");
+                    return new List<imageData>();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+
+                return new List<imageData>();
+            }
+        }
+
 
 
 
@@ -226,6 +283,9 @@ namespace ECOMap.API
     {
         [JsonProperty("Tree_ID")]
         public int id { get; set; }
+
+        [JsonProperty("Tree_Type")]
+        public string tree_type { get; set; }
 
 
         [JsonProperty("Guardian_ID")]

@@ -5,7 +5,7 @@
              Title="Tree Nearby?"
              Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="*,*">
+    <Grid RowDefinitions="*,*" x:Name="BeforeAddingQuestions" IsVisible="False">
         <!-- Background Image -->
         <Image Source="forest_background.jpg" Aspect="AspectFill"/>
 

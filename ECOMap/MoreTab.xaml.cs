@@ -13,17 +13,17 @@ namespace ECOMap
 
         private async void Login_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SignInPage());
+            await Navigation.PushAsync(new SignInPage());
         }
 
         private async void Settings_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SettingsPage());
+           await Navigation.PushAsync(new SettingsPage());
         }
         
         private async void ScanQR_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ScanQrPage());
+            await Navigation.PushAsync(new ScanQrPage());
         }
         private async void Profile_Clicked(object sender, EventArgs e)
         {
@@ -32,7 +32,7 @@ namespace ECOMap
     
         private async void TreeGuide_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new TreeGuidePage());
+           await Navigation.PushAsync(new TreeGuidePage());
         }
 
         private async void Help_Clicked(object sender, EventArgs e)
