@@ -1,9 +1,13 @@
+using ECOMap.API;
+
 namespace ECOMap;
 
 public partial class TreePageView : ContentPage
 {
-	public TreePageView()
+	treeData Tree;
+	public TreePageView(treeData tree)
 	{
 		InitializeComponent();
+		Tree = tree; 
 	}
 }

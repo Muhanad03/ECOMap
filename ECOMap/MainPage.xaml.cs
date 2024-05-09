@@ -134,18 +134,15 @@ namespace ECOMap
         {
             e.HideInfoWindow = true;
             CustomPin pin = (CustomPin)sender;
-            // Display a small note with a button to show more
-            string note = $"Tree ID: {pin.Label}\n {pin.Location.ToString()}";
-            bool result = await DisplayAlert("Tree Information", note, "Yes", "No");
+            ShowCustomPopup(pin.treedata);
+            
 
-            if (result)
-            {
-                ShowCustomPopup(pin.treedata);
-            }
+     
+           
         }
         private void ShowCustomPopup(treeData treeData)
         {
-            var popup = new CustomPopup(treeData);
+            var popup = new CustomPopup(treeData,this);
             this.ShowPopup(popup);  
         }
 

@@ -7,9 +7,13 @@
     Shell.FlyoutBehavior="Disabled"
     Title="ECOMap"
     Shell.TabBarForegroundColor="#1c7319"
-    Shell.TabBarTitleColor="#1c7319"
-    Shell.TabBarBackgroundColor="White">
+    Shell.TabBarTitleColor="#40C057"
+    Shell.TabBarBackgroundColor="White"
+    Shell.BackgroundColor="#40C057">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IconOverride="backbtn.png" />
+    </Shell.BackButtonBehavior>
     <TabBar x:Name="tabBar">
         
         
