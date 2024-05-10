@@ -184,7 +184,7 @@ public partial class AddTreePage : ContentPage
 
                 if (responseObject["status"] != null && (int)responseObject["status"] == 201)
                 {
-                    var userDataObject = responseObject["data"];
+                    var userDataObject = responseObject["Tree_ID"];
                     if (userDataObject != null)
                     {
                         var treeId = int.Parse(userDataObject.ToString());
@@ -228,6 +228,8 @@ public partial class AddTreePage : ContentPage
             };
 
             string imageResponse = await new ApiService().PostImage(imageData);
+            var page = (MainPage)App.Current.MainPage;
+            page.UpdatePins();
             Navigation.PopAsync();
         }
     }

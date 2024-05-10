@@ -226,7 +226,7 @@ namespace ECOMap.API
 
                 if (responseObject["status"] != null && (int)responseObject["status"] == 200)
                 {
-                    if (responseObject["data"] != null)
+                    if (responseObject["images"] != null)
                     {
                         JArray dataArray = (JArray)responseObject["images"];
 
@@ -244,7 +244,7 @@ namespace ECOMap.API
 
 
                             };
-
+                            tree.base64 = tree.base64.Replace("data:image/png;base64,", "");
                             treeDataList.Add(tree);
                         }
 
@@ -285,7 +285,7 @@ namespace ECOMap.API
         public int id { get; set; }
 
         [JsonProperty("Tree_Type")]
-        public string tree_type { get; set; }
+        public string? tree_type { get; set; }
 
 
         [JsonProperty("Guardian_ID")]
@@ -301,16 +301,16 @@ namespace ECOMap.API
         public double latitude { get; set; }
 
         [JsonProperty("Height")]
-        public double height { get; set; }
+        public double? height { get; set; }
 
         [JsonProperty("Circumference")]
-        public double circumference { get; set; }
+        public double? circumference { get; set; }
 
         [JsonProperty("Plant_Age")]
-        public string plant_Age { get; set; }
+        public string? plant_Age { get; set; }
 
         [JsonProperty("Comment")]
-        public string comment{ get; set; }
+        public string? comment{ get; set; }
 
 
 

@@ -3,10 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ECOMap.TreePageView"
              Title="TreePageView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="10">
+            <!-- Navigation and Title -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="⬅" BackgroundColor="Transparent" Clicked="OnPreviousClicked"/>
+                <Label Grid.Column="1" Text="Tree" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
+                <Button Grid.Column="2" Text="➡" BackgroundColor="Transparent" Clicked="OnNextClicked"/>
+            </Grid>
+
+
+            <CollectionView x:Name="imagesCollection" 
+                HeightRequest="200" 
+                ItemsLayout="HorizontalList" 
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding .}" Aspect="AspectFill" 
+                   HeightRequest="190" WidthRequest="190" 
+                   Margin="5"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Tree Info Section -->
+            <StackLayout>
+                <Label Text="Tree Type" FontAttributes="Bold"/>
+                <Label x:Name="Type" BackgroundColor="LightGreen" Padding="10"/>
+
+                <Label Text="Height" FontAttributes="Bold"/>
+                <Label x:Name="Height" Text="20 meters" BackgroundColor="LightGreen" Padding="10"/>
+
+                <Label Text="Circumference" FontAttributes="Bold"/>
+                <Label x:Name="Circumference"  Text="3.5 meters" BackgroundColor="LightGreen" Padding="10"/>
+
+                <Label Text="Age/Plant Date" FontAttributes="Bold"/>
+                <Label x:Name="Age" Text="1945-04-12" BackgroundColor="LightGreen" Padding="10"/>
+                <Label Text="info about this tree" FontAttributes="Bold"/>
+                <Label x:Name="Info" Text="1945-04-12" BackgroundColor="LightGreen" Padding="10"/>
+            </StackLayout>
+
+            <!-- Buttons for actions -->
+            <Button Text="Update Info" BackgroundColor="Green" TextColor="White"/>
+            <Button Text="Add Pictures" BackgroundColor="Green" TextColor="White"/>
+            <Button Text="Report to Guardian" BackgroundColor="Red" TextColor="White"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

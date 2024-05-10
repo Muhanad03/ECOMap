@@ -36,7 +36,7 @@ namespace ECOMap
       
         }
         
-        private async void UpdatePins()
+        public async void UpdatePins()
         {
 
             var treeDataList = await MauiProgram._ApiService.GetTreeDataAsync();

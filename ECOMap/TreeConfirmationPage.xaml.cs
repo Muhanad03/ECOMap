@@ -1,3 +1,4 @@
+using ECOMap.config;
 using Microsoft.Maui.Controls;
 using System;
 
@@ -8,8 +9,28 @@ namespace ECOMap
         public TreeConfirmationPage()
         {
             InitializeComponent();
+            if(Settings.CurrentUser != null)
+            {
+                BeforeAddingQuestions.IsVisible = true;
+            }
+            else
+            {
+                BeforeAddingQuestions.IsVisible = false;
+            }
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (Settings.CurrentUser != null)
+            {
+                BeforeAddingQuestions.IsVisible = true;
+            }
+            else
+            {
+                BeforeAddingQuestions.IsVisible = false;
+            }
+        }
         private async void OnYesClicked(object sender, EventArgs e)
         {
             

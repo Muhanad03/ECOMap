@@ -34,6 +34,7 @@ namespace ECOMap
 #if ANDROID || IOS || MACCATALYST
                 handlers.AddHandler<Microsoft.Maui.Controls.Maps.Map, CustomMapHandler>();
 #endif
+
             });
 
 
