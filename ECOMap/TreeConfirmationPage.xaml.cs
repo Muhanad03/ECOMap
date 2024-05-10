@@ -9,12 +9,14 @@ namespace ECOMap
         public TreeConfirmationPage()
         {
             InitializeComponent();
-            if(Settings.CurrentUser != null)
+            if(Settings.IsUserLoggedIn ==true)
             {
                 BeforeAddingQuestions.IsVisible = true;
+                AfterAddingQuestions.IsVisible = false;
             }
             else
             {
+                AfterAddingQuestions.IsVisible = true;
                 BeforeAddingQuestions.IsVisible = false;
             }
         }
@@ -22,12 +24,14 @@ namespace ECOMap
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (Settings.CurrentUser != null)
+            if (Settings.IsUserLoggedIn == true)
             {
                 BeforeAddingQuestions.IsVisible = true;
+                AfterAddingQuestions.IsVisible = false;
             }
             else
             {
+                AfterAddingQuestions.IsVisible = true;
                 BeforeAddingQuestions.IsVisible = false;
             }
         }
@@ -36,7 +40,13 @@ namespace ECOMap
             
             Navigation.PushAsync(new AddTreePage());
         }
+        
 
+        private async void OnLoginClicked(object sender, EventArgs e)
+        {
+
+            Navigation.PushAsync(new SignInPage());
+        }
         private async void OnNoClicked(object sender, EventArgs e)
         {
             

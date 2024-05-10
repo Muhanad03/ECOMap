@@ -71,7 +71,8 @@ namespace ECOMap
 
                             Settings.CurrentUser = user1;
                             Settings.IsUserLoggedIn = true;
-                            await DisplayAlert("Loggedin", "yes", "ok");
+                            Navigation.PopAsync();
+                            await DisplayAlert("Login successful", "Login", "ok");
                         }
                     }
                 }

@@ -14,6 +14,7 @@
 
             <!-- Stylish Button for Login -->
             <Button Text="Login" 
+                    x:Name="LoginBtn"
                     FontSize="Medium"
                     FontAttributes="Bold"
                     TextColor="White"
@@ -21,6 +22,7 @@
                     CornerRadius="10"
                     HeightRequest="50"
                     Clicked="Login_Clicked"/>
+   
             <Button Text="Scan QR Code" 
                      FontSize="Medium"
                      FontAttributes="Bold"
@@ -55,6 +57,8 @@
                     BackgroundColor="#FF9800"
                     CornerRadius="10"
                     HeightRequest="50"
+                    x:Name="Profilebtn"
+                    IsVisible="False"
                     Clicked="Profile_Clicked"/>
 
             <Button Text="Help" 
@@ -74,6 +78,17 @@
                     CornerRadius="10"
                     HeightRequest="50"
                     Clicked="AboutUs_Clicked"/>
+
+            <Button Text="Tree requests" 
+                 FontSize="Medium"
+                 FontAttributes="Bold"
+                 TextColor="White"
+                 BackgroundColor="LightGreen"
+                 CornerRadius="10"
+                 x:Name="Requestsbtn"
+                 HeightRequest="50"
+                 IsVisible="False"
+                 Clicked="Requests_Clicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

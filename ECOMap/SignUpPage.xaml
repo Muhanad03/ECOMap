@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="1" HeightRequest="100" IsAnimationPlaying="True" Source="happy_girl.gif"/>
+                <Image Grid.Column="1" HeightRequest="100" Source="ourlogo.png"/>
             </Grid>
 
             <Grid Grid.Row="1">

@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Collections.Specialized;
+using ECOMap.config;
 
 namespace ECOMap.API
 {
@@ -97,7 +98,7 @@ namespace ECOMap.API
                 var content = new StringContent(jsonTree, Encoding.UTF8, "application/json");
 
                 // Send the POST request to the API endpoint
-                HttpResponseMessage response = await _httpClient.PostAsync(TreeEndPoint+"create.php", content);
+                HttpResponseMessage response = await _httpClient.PostAsync(TreeEndPoint + "create.php", content);
 
                 // Check if the request was successful
                 response.EnsureSuccessStatusCode();
@@ -279,6 +280,9 @@ namespace ECOMap.API
 
     }
 
+
+   
+
     public class treeData
     {
         [JsonProperty("Tree_ID")]
@@ -312,6 +316,7 @@ namespace ECOMap.API
         [JsonProperty("Comment")]
         public string? comment{ get; set; }
 
+    
 
 
     }

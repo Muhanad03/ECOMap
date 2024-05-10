@@ -25,16 +25,16 @@ public partial class AddTreePage : ContentPage
 
         imagesCollection.ItemsSource = imageSources;
     }
-     
+
     protected override void OnAppearing()
     {
         base.OnAppearing();
-   
+
 
     }
     private async Task InitializeLocation()
     {
-        
+
         try
         {
             var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -45,7 +45,7 @@ public partial class AddTreePage : ContentPage
 
             if (status == PermissionStatus.Granted)
             {
-                var locationRequest = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10)); 
+                var locationRequest = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
                 Location? location = await Geolocation.GetLocationAsync(locationRequest);
                 if (location == null)
                 {
@@ -65,11 +65,11 @@ public partial class AddTreePage : ContentPage
                 }
 
                 if (location != null)
-                { 
+                {
                     // Update your model or UI here with the location data
                     Longitude = location.Longitude;
                     Latitude = location.Latitude;
-                    Debug.WriteLine($"Long:{Longitude}" +  Longitude);
+                    Debug.WriteLine($"Long:{Longitude}" + Longitude);
                 }
             }
             else
@@ -107,7 +107,7 @@ public partial class AddTreePage : ContentPage
             {
                 foreach (var imageFile in results)
                 {
-                    
+
                     using (var stream = await imageFile.OpenReadAsync())
                     {
                         var memoryStream = new MemoryStream();
@@ -173,7 +173,7 @@ public partial class AddTreePage : ContentPage
                 circumference = double.Parse(Circumference_Entry.Text),
                 plant_Age = Age_Picker.SelectedItem.ToString(),
                 comment = Comment_Entry.Text,
-                addedByUser_ID = Settings.CurrentUser.id // Assuming a fixed user ID for demonstration
+                addedByUser_ID = Settings.CurrentUser.id 
             };
 
             string response = await new ApiService().AddTreeDataAsync(treeData);
@@ -267,4 +267,3 @@ public partial class AddTreePage : ContentPage
         return isValid;
     }
 }
-

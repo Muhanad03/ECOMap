@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ECOMap.ProfilePage"
+             Title="ProfilePage">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="30">
+            <Image Source="person_icon.png"
+                   Aspect="AspectFill"
+                   HeightRequest="120"
+                   WidthRequest="120"
+                   HorizontalOptions="Center"
+                   Clip="EllipseGeometry(Rect(0, 0, 120, 120))"/>
+
+            <Entry Text="{Binding first_Name}" Placeholder="First Name" FontSize="16"/>
+            <Entry Text="{Binding last_Name}" Placeholder="Last Name" FontSize="16"/>
+            <Entry Text="{Binding email}" Placeholder="Email" FontSize="16"/>
+            <Entry Text="{Binding user_Type}" Placeholder="User Type" FontSize="16"/>
+            <Label Text="{Binding total_Points}" FontSize="16" HorizontalOptions="Center"/>
+
+            <Button Text="Update Profile" Command="{Binding UpdateCommand}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

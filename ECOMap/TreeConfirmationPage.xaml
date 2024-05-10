@@ -5,7 +5,7 @@
              Title="Tree Nearby?"
              Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="*,*" x:Name="BeforeAddingQuestions" IsVisible="False">
+    <Grid RowDefinitions="*,*">
         <!-- Background Image -->
         <Image Source="forest_background.jpg" Aspect="AspectFill"/>
 
@@ -13,7 +13,7 @@
         <Grid BackgroundColor="#000000" Opacity="0.5"/>
 
         <!-- Content and Overlay -->
-        <Grid Row="1">
+        <Grid Row="1" x:Name="BeforeAddingQuestions">
             <RoundRectangle Margin="-5, -30, -5, -2"
                         CornerRadius="30,30,0,0"
                         Fill="WhiteSmoke"/>
@@ -43,6 +43,36 @@
                     Clicked="OnNoClicked"/>
             </VerticalStackLayout>
         </Grid>
+
+        <Grid Row="1" x:Name="AfterAddingQuestions">
+            <RoundRectangle Margin="-5, -30, -5, -2"
+                CornerRadius="30,30,0,0"
+                Fill="WhiteSmoke"/>
+
+            <VerticalStackLayout Margin="30, 60, 30, 30" Spacing="20">
+                <Label Text="This feature is only accessible when logged in"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   TextColor="Black"
+                   FontAttributes="Bold"/>
+
+                <!-- Buttons for Yes and No -->
+                <Button Text="Login"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Clicked="OnLoginClicked"/>
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
+
+
+
+
+
+
+
 
 </ContentPage>

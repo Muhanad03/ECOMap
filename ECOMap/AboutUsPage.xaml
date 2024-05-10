@@ -1,0 +1,53 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ECOMap.AboutUsPage"
+             Title="AboutUsPage">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30">
+            <Image Source="ourlogo.png" Aspect="AspectFit"/>
+
+            <Label Text="Our Mission" 
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="To provide the best service possible with the highest regards to quality, customer satisfaction, and integrity."
+                   FontSize="18"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Meet the Team"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <HorizontalStackLayout>
+                <!-- Example for two team members, duplicate as needed -->
+                <VerticalStackLayout>
+                    <!--<Image Source="person1.jpg" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>-->
+                    <Label Text="Dana White" FontAttributes="Bold"/>
+                    <Label Text="CEO"/>
+                </VerticalStackLayout>
+
+                <!--<VerticalStackLayout>
+                    <Image Source="person2.jpg" Aspect="AspectFill" WidthRequest="100" HeightRequest="100"/>
+                    <Label Text="John Smith" FontAttributes="Bold"/>
+                    <Label Text="CTO"/>
+                </VerticalStackLayout>-->
+            </HorizontalStackLayout>
+
+            <Label Text="Contact Us"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Email: contact@ourcompany.com"
+                   FontSize="18"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Phone: Null"
+                   FontSize="18"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
