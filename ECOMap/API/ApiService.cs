@@ -367,10 +367,13 @@ namespace ECOMap.API
     {
         [JsonProperty("Image_ID")]
         public int id { get; set; }
+
         [JsonProperty("Tree_ID")]
         public int tree_id { get; set; }
+
         [JsonProperty("AddedByUser_ID'")]
         public int user_id { get; set; }
+
         [JsonProperty("Base64")]
         public string base64 { get; set; }
 

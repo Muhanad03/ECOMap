@@ -1,12 +1,10 @@
 using ECOMap.API;
-using ECOMap.config;
 using ECOMap.Services;
 using Microsoft.Maui.Controls;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 
 
 namespace ECOMap;
@@ -19,22 +17,16 @@ public partial class AddTreePage : ContentPage
     public AddTreePage()
     {
         InitializeComponent();
-        InitializeLocation();
-        Height_Picker.SelectedIndex = 1;
-        Circumference_Picker.SelectedIndex = 0;
-
         imagesCollection.ItemsSource = imageSources;
     }
-
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
+        InitializeLocation();
 
     }
-    private async Task InitializeLocation()
+    private async void InitializeLocation()
     {
-
         try
         {
             var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -45,22 +37,13 @@ public partial class AddTreePage : ContentPage
 
             if (status == PermissionStatus.Granted)
             {
-                var locationRequest = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-                Location? location = await Geolocation.GetLocationAsync(locationRequest);
+                var location = await Geolocation.GetLastKnownLocationAsync();
                 if (location == null)
                 {
                     location = await Geolocation.GetLocationAsync(new GeolocationRequest
                     {
-                        DesiredAccuracy = GeolocationAccuracy.High,
-                        Timeout = TimeSpan.FromSeconds(5) // Increased timeout
-                    });
-                }
-                if (location == null)
-                {
-                    location = await Geolocation.GetLocationAsync(new GeolocationRequest
-                    {
-                        DesiredAccuracy = GeolocationAccuracy.High,
-                        Timeout = TimeSpan.FromSeconds(0.5)
+                        DesiredAccuracy = GeolocationAccuracy.Medium,
+                        Timeout = TimeSpan.FromSeconds(30)
                     });
                 }
 
@@ -69,7 +52,6 @@ public partial class AddTreePage : ContentPage
                     // Update your model or UI here with the location data
                     Longitude = location.Longitude;
                     Latitude = location.Latitude;
-                    Debug.WriteLine($"Long:{Longitude}" + Longitude);
                 }
             }
             else
@@ -93,6 +75,7 @@ public partial class AddTreePage : ContentPage
             return Convert.ToBase64String(imageBytes);
         }
     }
+
     private async void OnSelectImageButtonClicked(object sender, EventArgs e)
     {
         try
@@ -107,19 +90,24 @@ public partial class AddTreePage : ContentPage
             {
                 foreach (var imageFile in results)
                 {
-
-                    using (var stream = await imageFile.OpenReadAsync())
+                    if (imageSources.Count < 5) // Limit to 5 images
                     {
-                        var memoryStream = new MemoryStream();
-                        await stream.CopyToAsync(memoryStream);
+                        var stream = await imageFile.OpenReadAsync();
 
-                        memoryStream.Position = 0;
-                        var imageSource = ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
-                        imageSources.Add(imageSource);
+                        // Ensure the stream is reset to the beginning
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await stream.CopyToAsync(memoryStream);
+                            memoryStream.Position = 0;
 
-                        memoryStream.Position = 0;
-                        var base64Image = await ConvertStreamToBase64(memoryStream);
-                        base64Images.Add(base64Image);
+                            // Display image in the preview
+                            imageSources.Add(ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray())));
+
+                            // Reset position for base64 conversion
+                            memoryStream.Position = 0;
+                            var base64Image = await ConvertStreamToBase64(memoryStream);
+                            base64Images.Add(base64Image);
+                        }
                     }
                 }
             }
@@ -165,7 +153,6 @@ public partial class AddTreePage : ContentPage
         {
             var treeData = new treeData
             {
-                // Assuming additional properties are properly bound or set
                 tree_type = TreeType_Entry.Text,
                 longitude = Longitude,
                 latitude = Latitude,
@@ -173,7 +160,7 @@ public partial class AddTreePage : ContentPage
                 circumference = double.Parse(Circumference_Entry.Text),
                 plant_Age = Age_Picker.SelectedItem.ToString(),
                 comment = Comment_Entry.Text,
-                addedByUser_ID = Settings.CurrentUser.id 
+                addedByUser_ID = 23 // Assuming a fixed user ID for demonstration
             };
 
             string response = await new ApiService().AddTreeDataAsync(treeData);
@@ -184,22 +171,22 @@ public partial class AddTreePage : ContentPage
 
                 if (responseObject["status"] != null && (int)responseObject["status"] == 201)
                 {
-                    var userDataObject = responseObject["Tree_ID"];
-                    if (userDataObject != null)
+                    var userDataObject = responseObject["data"];
+                    if (userDataObject != null && userDataObject["Tree_ID"] != null)
                     {
-                        var treeId = int.Parse(userDataObject.ToString());
+                        var treeId = int.Parse(userDataObject["Tree_ID"].ToString());
                         await UploadImages(treeId); // Call method to upload images
                     }
                 }
                 else
                 {
-                    await DisplayAlert("Error", "Failed to add tree data.", "OK");
+                    await DisplayAlert("Error", "Failed to add tree data. Server response: " + response, "OK");
                     return;
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Unexpected error: " + ex.Message, "OK");
+                await DisplayAlert("Error", "Unexpected error: " + ex.Message + "\nServer response: " + response, "OK");
                 return;
             }
 
@@ -210,6 +197,7 @@ public partial class AddTreePage : ContentPage
             await DisplayAlert("Validation Error", "Please check your inputs and try again.", "OK");
         }
     }
+
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
@@ -217,22 +205,22 @@ public partial class AddTreePage : ContentPage
     }
     private async Task UploadImages(int treeId)
     {
-        foreach (var imageSource in base64Images)
+        foreach (var base64Image in base64Images)
         {
-            var image = imageSource;
             var imageData = new imageData
             {
                 tree_id = treeId,
-                base64 = image,
+                base64 = base64Image,
                 user_id = 23
             };
 
             string imageResponse = await new ApiService().PostImage(imageData);
-            var page = (MainPage)App.Current.MainPage;
-            page.UpdatePins();
-            Navigation.PopAsync();
+           
         }
+
+        Navigation.PopAsync();
     }
+
 
 
     private bool ValidateInputs()
